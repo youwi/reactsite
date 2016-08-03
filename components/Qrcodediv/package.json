@@ -1,0 +1,6 @@
+{
+  "name": "Qrcodediv",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Qrcodediv.js"
+}
