@@ -12,7 +12,11 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import { title, html } from './index.md';
 import AppMainPanel from '../../components/AppLogoPanel/AppMainPanel'
-
+import { connect } from 'react-redux';
+import LoginDialog from "../../components/LoginDialog";
+import { Provider } from 'react-redux';
+import Store from "../../core/store.js";
+import {App} from "../../components/TodoApp/TodoApp";
 
 class HomePage extends React.Component {
 
@@ -22,12 +26,16 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <Layout>
-        <AppMainPanel></AppMainPanel>
-      </Layout>
+      <Provider store={Store}>
+        <Layout>
+          <LoginDialog openDialog={this.props.openDialog}></LoginDialog>
+            <AppMainPanel></AppMainPanel>
+        </Layout>
+      </Provider>
     );
   }
 
 }
 
+//export default connect(select)(HomePage);
 export default HomePage;

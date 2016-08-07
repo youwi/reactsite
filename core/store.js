@@ -10,13 +10,19 @@
 
 import { createStore } from 'redux';
 
+
 // Centralized application state
 // For more information visit http://redux.js.org/
 const store = createStore((state, action) => {
   // TODO: Add action handlers (aka "reduces")
-  switch (action) {
+  switch (action.type) {
     case 'COUNT':
+      console.log("COUNT ....ing");
       return { ...state, count: (state.count || 0) + 1 };
+    case 'OPEN_LOGIN_DIALOG':
+      console.log("OPEN_LOGIN_DIALOG ....ing");
+
+      return { ...state,openDialog:true};
     default:
       return state;
   }

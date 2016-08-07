@@ -25,7 +25,7 @@ var allapplist=[{
 class AppMainPanel extends React.Component {
 
   componentDidMount() {
-    this._update=this._update.bind(this);
+
     console.log("121323123131");
     document.title = title;
     this.state.allapplist=allapplist;
@@ -38,19 +38,9 @@ class AppMainPanel extends React.Component {
     });
   };
 
-  _update(){
-    var at=this;
-    forjson("http://127.0.0.1:3000/3333",null,function(data){
-      tmp=data;
-      at.setState("allapplist",data);
-      console.log("aafawfawaaaaaaaaaaaa");
-    });
 
-  };
 
   render() {
-
-
 
     return (
       <List style={{width: '650px'}}>
@@ -59,7 +49,7 @@ class AppMainPanel extends React.Component {
               <ListItem threeLine key={app.appid}>
                 <ListItemContent avatar="person" subtitle={app.desc}>{app.appname}</ListItemContent>
                 <ListItemAction>
-                  <a href="#" onclick={this._update}>update</a>
+                  <a href="#" onClick="">update</a>
                 </ListItemAction>
               </ListItem>
             )

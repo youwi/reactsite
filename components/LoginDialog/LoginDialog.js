@@ -10,17 +10,27 @@
 
 import React from 'react';
 import Link from '../Link';
+import pubsub from "pubsub-js";
+import {Button,Dialog,DialogActions,DialogContent,DialogTitle,Textfield } from "react-mdl";
 
 class LoginDialog extends React.Component{
- 
+
   constructor(props){
     super(props);
     this.state = {};
+    this.state.openDialog=this.props.openDialog||false;
+    console.log("    this.state.openDialog:"+    this.state.openDialog);
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
+    this.loginStep3 = this.loginStep3.bind(this);
+
+    pubsub.subscribe("OPEN_LOGIN_DIALOG",this.handleOpenDialog);
+    pubsub.subscribe("CLOSE_LOGIN_DIALOG",this.handleCloseDialog);
+
   }
 
   handleOpenDialog(){
+    console.log("handleOpenDialog");
     this.setState({
       openDialog: true
     });
@@ -31,19 +41,38 @@ class LoginDialog extends React.Component{
       openDialog: false
     });
   }
+  loginStep3(){
+    this.handleCloseDialog();
+    console.log(this.state.username);
+    console.log(this.state.passwd);
+  }
 
   render() {
+
     return (
-      <div>
-        <Button colored onClick={this.handleOpenDialog} onCancel={this.handleCloseDialog} raised ripple>Show Dialog</Button>
-        <Dialog open={this.state.openDialog} onCancel={this.handleCloseDialog}>
-          <DialogTitle>Allow data collection?</DialogTitle>
+      <div id="aa77">
+
+         <Dialog open={this.state.openDialog} onCancel={this.handleCloseDialog}>
+          <DialogTitle>输入</DialogTitle>
           <DialogContent>
-            <p>Allowing us to collect data will let us get you the information you want faster.</p>
+            <form>
+            <Textfield value={this.state.username}
+            onChange={() => {}}
+            label="用户名:"
+            floatingLabel
+            style={{width: '200px'}}
+          />
+            <Textfield value={this.state.passwd} type="password"
+              onChange={() => {}}
+              label="密码:"
+              floatingLabel
+              style={{width: '200px'}}
+            />
+              </form>
           </DialogContent>
           <DialogActions>
 
-            <Button type='button' onClick={this.handleCloseDialog}>登陆</Button>
+            <Button type='button' onClick={this.loginStep3}>登陆</Button>
           </DialogActions>
         </Dialog>
       </div>

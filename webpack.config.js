@@ -109,6 +109,7 @@ const config = {
           'postcss-loader',
         ],
       },
+      { test: /\.(less)$/, loader: 'less-loader' },
     //  {test: /\.less$/, loader: 'style!css!less'},
       {
         test: /\.json$/,

@@ -200,3 +200,11 @@ the [LICENSE.txt](https://github.com/kriasoft/react-static-boilerplate/blob/mast
 
 ---
 Made with ♥ by Konstantin Tarkus ([@koistya](https://twitter.com/koistya)) and [contributors](https://github.com/kriasoft/react-static-boilerplate/graphs/contributors)
+
+
+CDN:
+ * https://cdn.rawgit.com/tleunen/react-mdl/master/extra/material.min.css
+ * https://cdn.rawgit.com/isagalaev/highlight.js/master/src/styles/default.css
+ * https://cdn.rawgit.com/tleunen/react-mdl/master/extra/material.min.js
+ * https://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,500italic,700,700italic
+ * https://fonts.googleapis.com/icon?family=Material+Icons
