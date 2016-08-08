@@ -4,7 +4,9 @@ import s from './custom.css';
 import { Tooltip ,Icon,List,ListItem,ListItemAction,ListItemContent} from 'react-mdl';
 import {  CardTitle,Card,CardActions,CardText,Button} from 'react-mdl';
 import {forjson } from '../AjaxJson';
-
+import pubsub from "pubsub-js";
+import { findDOMNode } from 'react-dom';
+import  ReleaseLineVersion  from "../ReleaseLineVersion"
 import Qrcodediv from '../Qrcodediv';
 
 
@@ -21,6 +23,12 @@ class AppMainPanel extends React.Component {
         this.setState({allapplist:data});
     });
 
+    pubsub.subscribe("APP_DETAIL",(type,data)=>{
+      // this.setState( {appid:data.appid} );
+      // this.setState({ token:data.token});
+      // console.log("APP_DETAIL")
+    });
+  //  this.handelSelectApp.bind(this);
   }
 
 
@@ -38,21 +46,35 @@ class AppMainPanel extends React.Component {
     // // });
   };
 
+  handelSelectApp(appid,e){
+    console.log(appid);
+   // this.state.selectedapp=e.target.key;
+    this.refs.domappid1;
+    forjson("/getapp.rest",{token:'123'},(data)=>{
+      this.setState({selected:appid});
+    });
+  }
 
 
   render() {
-// style={{width: '50px'}}
+    if(this.state.selected){
+      return (
+        <ReleaseLineVersion></ReleaseLineVersion>
+      )
+    }else
     return (
       <List  >
-        {   this.state.allapplist.map(function (app) {
+        {   this.state.allapplist.map( (app)=> {
             return (
 
-            <li className={s.postli}>
-              <Card shadow={0} style={{width: '150px', height: '150px', margin: '10px',float: "left"}}>
-            <CardTitle expand style={{color: '#fff', background: 'url(http://www.getmdl.io/assets/demos/dog.png) bottom right 15% no-repeat #46B6AC'}}>Update</CardTitle>
-            <CardText>悟空找房</CardText>
-
+            <li className={s.postli} key={app.appid} ref={"domappid"+app.appid}>
+              <div className={s.fade}>
+              <Card   shadow={2} style={{width: '150px', height: '150px', margin: '10px',float: "left"}}
+                    onClick={this.handelSelectApp.bind(this,app.appid)}>
+              <CardTitle expand style={{color: '#fff', background: 'url(http://www.getmdl.io/assets/demos/dog.png) bottom right 15% no-repeat #46B6AC'}}>{app.version}</CardTitle>
+              <CardText>{app.appname}</CardText>
             </Card>
+                </div>
               </li>
 
             )

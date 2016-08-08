@@ -48,7 +48,35 @@ export function forjson(url, data,callback) {
             version:"1.2",
             desc:" 二手房网重庆建设工程信息网"
           }]);
-      else
+      else if(url.indexOf("/getapp.rest")>-1){
+        callback(  [{
+          identy:"com.wkzf",
+          appid:1,
+          version:"1.2",
+          appname:"悟空找房",
+          desc:"app描述信息",
+          appicon:"www.baidu.com",
+          createat:12131313131,
+          platform:"ios",
+          size:"1231131",
+          filename:"D:/abc.ipa",
+          state:1
+        },
+          {
+            identy:"com.wkzf",
+            appid:1,
+            version:"1.3",
+            appname:"悟空找房",
+            desc:"app描述信息",
+            appicon:"www.baidu.com",
+            createat:12131313131,
+            platform:"ios",
+            size:"1231131",
+            filename:"D:/abc.ipa",
+            state:1
+          }])
+      }
+       else
         callback({state:1,token:'121313131',username:"abc"});
     }
   });
