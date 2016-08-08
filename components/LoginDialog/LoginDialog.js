@@ -12,12 +12,14 @@ import React from 'react';
 import Link from '../Link';
 import pubsub from "pubsub-js";
 import {Button,Dialog,DialogActions,DialogContent,DialogTitle,Textfield } from "react-mdl";
+import { forjson  } from "../AjaxJson";
 
 class LoginDialog extends React.Component{
 
   constructor(props){
     super(props);
     this.state = {};
+    this.state.username="SD";
     this.state.openDialog=this.props.openDialog||false;
     console.log("    this.state.openDialog:"+    this.state.openDialog);
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
@@ -45,6 +47,14 @@ class LoginDialog extends React.Component{
     this.handleCloseDialog();
     console.log(this.state.username);
     console.log(this.state.passwd);
+    forjson("/login.rest",null,function (data) {
+      pubsub.publish("LOGIN_SUCCESS",data);
+    });
+    // // forjson("http://127.0.0.1:3000/3333",null,function(data){
+    // //     tmp=data;
+    // //   at.setState("allapplist",data);
+    // //   console.log("aafawfawaaaaaaaaaaaa");
+    // // });
   }
 
   render() {
@@ -57,13 +67,13 @@ class LoginDialog extends React.Component{
           <DialogContent>
             <form>
             <Textfield value={this.state.username}
-            onChange={() => {}}
+            onChange={(e) => {this.setState({username:e.target.value})}}
             label="用户名:"
             floatingLabel
             style={{width: '200px'}}
           />
             <Textfield value={this.state.passwd} type="password"
-              onChange={() => {}}
+              onChange={(e) => {this.setState({passwd:e.target.value})}}
               label="密码:"
               floatingLabel
               style={{width: '200px'}}
@@ -72,7 +82,7 @@ class LoginDialog extends React.Component{
           </DialogContent>
           <DialogActions>
 
-            <Button type='button' onClick={this.loginStep3}>登陆</Button>
+            <Button type='button' raised accent ripple onClick={this.loginStep3}>登陆</Button>
           </DialogActions>
         </Dialog>
       </div>

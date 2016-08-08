@@ -21,7 +21,7 @@ class Layout extends React.Component {
   }
 
   componentWillUnmount() {
-    window.componentHandler.downgradeElements(this.refs.root);
+  //  window.componentHandler.downgradeElements(this.refs.root);
   }
 //style={{height: '30px', position: 'relative','min-height':'34px'}}
   render() {

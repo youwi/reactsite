@@ -22,6 +22,10 @@ class Navigation extends React.Component {
     this.dispatch=dispatch;
     this.state={};
     this.state.openDialog='';//this.props.openDialog;
+    pubsub.subscribe("LOGIN_SUCCESS",(type,data)=>{
+      this.setState( {username:data.username} );
+      this.setState({ token:data.token});
+      console.log("LOGIN_SUCCESS")});
   }
 
   componentDidMount() {
@@ -36,10 +40,17 @@ class Navigation extends React.Component {
     console.log("logint click");
     this.dispatch({type:"OPEN_LOGIN_DIALOG"});
     pubsub.publish("OPEN_LOGIN_DIALOG");
+
   }
   trigerLogoutStep(){
     console.log("logout click");
-    this.dispatch({type:"OPEN_LOGIN_DIALOG"});
+  //  this.dispatch({type:"OPEN_LOGIN_DIALOG"});
+    this.setState({username:null,token:null});
+   }
+
+  trigerLoginSuccess(){
+
+
   }
 
   render() {
@@ -50,8 +61,15 @@ class Navigation extends React.Component {
         <Link className="mdl-navigation__link" to="#">
             <IconButton name="account_circle" id="demo-menu-lower-right" />
             <Menu target="demo-menu-lower-right" align="right">
-              <li className="mdl-menu__item" onClick={this.trigerLogoutStep()}>注销</li>
-              <li className="mdl-menu__item" onClick={this.trigerLoginStep.bind(this)}>登陆</li>
+              <li className="mdl-menu__item" onClick={this.trigerLogoutStep.bind(this)}>注销</li>
+              {
+                this.state.username?
+                  <li className="mdl-menu__item">{this.state.username}</li>
+                :
+                   <li className="mdl-menu__item" onClick={this.trigerLoginStep.bind(this)}>登陆</li>
+
+              }
+
             </Menu>
         </Link>
       </nav>

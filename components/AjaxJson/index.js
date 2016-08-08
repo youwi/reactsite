@@ -9,15 +9,57 @@ export function forjson(url, data,callback) {
   console.log("0000000000000000000");
   var xhr = new XMLHttpRequest();
   xhr.open("POST", url += ((/\?/).test(url) ? "&" : "?") + (new Date()).getTime(), true);
-  xhr.send(data);
+
 
   xhr.addEventListener('readystatechange', function() {
     if(4 === xhr.readyState && 200 === xhr.status) {
         let data = JSON.parse(xhr.responseText);
         callback(data);
     }
+    if(4 === xhr.readyState && xhr.status === 404){
+      console.log("error");
+
+      if(url.indexOf("/allapp.rest" )>-1)
+        callback([{
+          appid:"1",
+          appname:"悟空找房",
+          appicon:"http://static.wkzf.com/web_fe/img/source/public/logo.png",
+          version:"1.2",
+          desc:" 二手房网重庆建设工程信息网"
+        },
+          {
+            appid:"2",
+            appname:"有房有客",
+            appicon:"http://static.wkzf.com/web_fe/img/source/public/logo.png",
+            version:"1.2",
+            desc:" 二手房网重庆建设工程信息网"
+          },
+          {
+            appid:"3",
+            appname:"有房有客",
+            appicon:"http://static.wkzf.com/web_fe/img/source/public/logo.png",
+            version:"1.2",
+            desc:" 二手房网重庆建设工程信息网"
+          },
+          {
+            appid:"4",
+            appname:"有房有客",
+            appicon:"http://static.wkzf.com/web_fe/img/source/public/logo.png",
+            version:"1.2",
+            desc:" 二手房网重庆建设工程信息网"
+          }]);
+      else
+        callback({state:1,token:'121313131',username:"abc"});
+    }
   });
   xhr.addEventListener('error', function() {
-    console.log(error);
+
+      /**
+       * jsut mock it
+       */
+
+
+    console.log( error);
   });
+  xhr.send(data);
 }

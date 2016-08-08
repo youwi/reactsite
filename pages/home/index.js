@@ -26,8 +26,8 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <Provider store={Store}>
-        <Layout>
+      <Provider store={Store} titile="ok">
+        <Layout title="ok">
           <LoginDialog openDialog={this.props.openDialog}></LoginDialog>
             <AppMainPanel></AppMainPanel>
         </Layout>
