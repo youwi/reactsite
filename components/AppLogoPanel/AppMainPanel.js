@@ -2,7 +2,7 @@
 import React from 'react';
 import s from './custom.css';
 import { Tooltip ,Icon,List,ListItem,ListItemAction,ListItemContent} from 'react-mdl';
-import {  CardTitle,Card,CardActions,CardText,Button} from 'react-mdl';
+import {  DataTable,TableHeader,CardTitle,Card,CardActions,CardText,Button} from 'react-mdl';
 import {forjson } from '../AjaxJson';
 import pubsub from "pubsub-js";
 import { findDOMNode } from 'react-dom';
@@ -18,13 +18,19 @@ class AppMainPanel extends React.Component {
     super(props);
     this.state={};
     this.state.allapplist=[];
+    this.state.appversion=[];
 
-    forjson("/allapp.rest",{token:'123'},(data)=>{
+    forjson("http://127.0.0.1:9090/getallapp.rest",{token:'123'},(data)=>{
         this.setState({allapplist:data});
     });
 
     pubsub.subscribe("APP_DETAIL",(type,data)=>{
       // this.setState( {appid:data.appid} );
+      // this.setState({ token:data.token});
+      // console.log("APP_DETAIL")
+    });
+    pubsub.subscribe("APP_MAIN",(type,data)=>{
+      this.setState({selected:null});
       // this.setState({ token:data.token});
       // console.log("APP_DETAIL")
     });
@@ -50,8 +56,13 @@ class AppMainPanel extends React.Component {
     console.log(appid);
    // this.state.selectedapp=e.target.key;
     this.refs.domappid1;
-    forjson("/getapp.rest",{token:'123'},(data)=>{
-      this.setState({selected:appid});
+    forjson("http://127.0.0.1:9090/getapp.rest",{appid:appid},(data)=>{
+
+      data.sort((a,b)=>{
+        return a.version<b.version;
+      });
+      this.setState({selected:appid,appversion:data});
+
     });
   }
 
@@ -59,10 +70,13 @@ class AppMainPanel extends React.Component {
   render() {
     if(this.state.selected){
       return (
-        <ReleaseLineVersion></ReleaseLineVersion>
+        <ReleaseLineVersion appversion={this.state.appversion}>
+
+        </ReleaseLineVersion>
       )
     }else
     return (
+
       <List  >
         {   this.state.allapplist.map( (app)=> {
             return (

@@ -24,3 +24,13 @@
 .listyle{
   list-style-type:none
 }
+.listlike{
+
+}
+
+.hide{
+  display: none;
+}
+.show{
+  display:block;
+}

@@ -14,6 +14,7 @@ import Link from '../Link';
 import {Icon,Menu,MenuItem,IconButton } from 'react-mdl';
 import LoginDialog from "../LoginDialog";
 import pubsub from "pubsub-js";
+import {forjson}  from "../AjaxJson";
 
 class Navigation extends React.Component {
 
@@ -23,9 +24,14 @@ class Navigation extends React.Component {
     this.state={};
     this.state.openDialog='';//this.props.openDialog;
     pubsub.subscribe("LOGIN_SUCCESS",(type,data)=>{
-      this.setState( {username:data.username} );
-      this.setState({ token:data.token});
+      this.setState( {username:data.name,token:data.token} );
       console.log("LOGIN_SUCCESS")});
+    
+    setTimeout(()=>{
+      forjson("http://127.0.0.1:9090/userinfo.rest",null,(data)=> {
+        this.setState({username: data.username});
+      });
+    },2);
   }
 
   componentDidMount() {
@@ -43,9 +49,9 @@ class Navigation extends React.Component {
 
   }
   trigerLogoutStep(){
-    console.log("logout click");
-  //  this.dispatch({type:"OPEN_LOGIN_DIALOG"});
     this.setState({username:null,token:null});
+    localStorage.token=null;
+    pubsub.publish("LOGIN_OUT");
    }
 
   trigerLoginSuccess(){
@@ -58,7 +64,7 @@ class Navigation extends React.Component {
     return (
       <nav className="mdl-navigation" ref="root">
 
-        <Link className="mdl-navigation__link" to="#">
+        <Link className="mdl-navigation__link" to="#">{this.state.username}
             <IconButton name="account_circle" id="demo-menu-lower-right" />
             <Menu target="demo-menu-lower-right" align="right">
               <li className="mdl-menu__item" onClick={this.trigerLogoutStep.bind(this)}>注销</li>

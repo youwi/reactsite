@@ -17,6 +17,7 @@ import LoginDialog from "../../components/LoginDialog";
 import { Provider } from 'react-redux';
 import Store from "../../core/store.js";
 import {App} from "../../components/TodoApp/TodoApp";
+import GlobalToast from "../../components/GlobalToast";
 
 class HomePage extends React.Component {
 
@@ -30,6 +31,7 @@ class HomePage extends React.Component {
         <Layout title="ok">
           <LoginDialog openDialog={this.props.openDialog}></LoginDialog>
             <AppMainPanel></AppMainPanel>
+          <GlobalToast></GlobalToast>
         </Layout>
       </Provider>
     );

@@ -4,22 +4,49 @@
  * @param data
  */
 
+import pubsub from "pubsub-js";
+var globalToken=null;
+
+pubsub.subscribe("LOGIN_OUT",()=>{globalToken=null});
+
 export function forjson(url, data,callback) {
 
-  console.log("0000000000000000000");
+
+
+  var hostport="127.0.0.1:9090";
+
+  url=url.replace(/(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]):\d+/,hostport);
+
   var xhr = new XMLHttpRequest();
   xhr.open("POST", url += ((/\?/).test(url) ? "&" : "?") + (new Date()).getTime(), true);
+  xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+
+  if(globalToken==null && localStorage.token !=null)
+    globalToken=localStorage.token;
+  if(globalToken!=null && localStorage.token ==null)
+    localStorage.token=globalToken;
+
+  if(data==null) data={};
+  data.token=globalToken;
+  data=serForm(data);
 
 
   xhr.addEventListener('readystatechange', function() {
     if(4 === xhr.readyState && 200 === xhr.status) {
         let data = JSON.parse(xhr.responseText);
+      if(data.token) {
+        globalToken=data.token;
+        localStorage.token=data.token;
+      }
+      if(data.state==0)  pubsub.publish("OPEN_LOGIN_DIALOG");
+      else if(data.state==-4) pubsub.publish("TOAST_INFO",data.msg);
+      else
         callback(data);
     }
     if(4 === xhr.readyState && xhr.status === 404){
       console.log("error");
 
-      if(url.indexOf("/allapp.rest" )>-1)
+      if(url.indexOf("/getallapp.rest" )>-1)
         callback([{
           appid:"1",
           appname:"悟空找房",
@@ -77,17 +104,31 @@ export function forjson(url, data,callback) {
           }])
       }
        else
-        callback({state:1,token:'121313131',username:"abc"});
+        callback({state:1,token:'121313131',name:"abc"});
     }
   });
-  xhr.addEventListener('error', function() {
+  xhr.addEventListener('error', function(e) {
 
       /**
        * jsut mock it
        */
 
-
-    console.log( error);
+    console.log( e);
   });
   xhr.send(data);
 }
+
+/**
+ * 表单转化
+ * @param data
+ */
+function serForm(data) {
+
+  var out="";
+  for(var tt in data){
+    out=out+"&"+tt+"="+data[tt]
+  }
+  return out;
+
+}
+
