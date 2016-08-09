@@ -14,7 +14,7 @@ import pubsub from "pubsub-js";
 import {Icon,DataTable,TableHeader,IconButton,Button,Dialog,DialogActions,DialogContent,DialogTitle,Textfield } from "react-mdl";
 import { forjson  } from "../AjaxJson";
 import s from "./cusstom.css";
-
+import Qrcodediv from "../Qrcodediv"
 
 
 class BuildList extends React.Component{
@@ -50,7 +50,10 @@ class BuildList extends React.Component{
                   <span><a onClick={this.handelDownload.bind(this,v.filename)}
                            href={"http://127.0.0.1:9090/file/filelink?filename="+v.filename}>下载</a>
                   </span>
-                  <span></span>
+
+                    <Qrcodediv url={"http://127.0.0.1:9090/file/filelink?filename="+v.filename}></Qrcodediv>
+
+
 
                 </li>
               )

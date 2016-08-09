@@ -20,9 +20,11 @@ class AppMainPanel extends React.Component {
     this.state.allapplist=[];
     this.state.appversion=[];
 
-    forjson("http://127.0.0.1:9090/getallapp.rest",{token:'123'},(data)=>{
-        this.setState({allapplist:data});
-    });
+    setTimeout(()=>{
+      forjson("http://127.0.0.1:9090/getallapp.rest",{token:'123'},(data)=>{
+          this.setState({allapplist:data||[]});
+      });
+    },2);
 
     pubsub.subscribe("APP_DETAIL",(type,data)=>{
       // this.setState( {appid:data.appid} );

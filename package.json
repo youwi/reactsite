@@ -12,6 +12,7 @@
     "history": "^3.0.0",
     "jquery": "^3.1.0",
     "pubsub-js": "^1.5.3",
+    "rc-qrcode": "^1.0.1",
     "rctui": "^0.6.7",
     "react": "^15.2.1",
     "react-dom": "^15.3.0",

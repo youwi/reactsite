@@ -38,8 +38,16 @@ export function forjson(url, data,callback) {
         globalToken=data.token;
         localStorage.token=data.token;
       }
-      if(data.state==0)  pubsub.publish("OPEN_LOGIN_DIALOG");
-      else if(data.state==-4) pubsub.publish("TOAST_INFO",data.msg);
+      if(data.state==0)
+        pubsub.publish("OPEN_LOGIN_DIALOG");
+      else if(data.state==-4)
+        pubsub.publish("TOAST_INFO",data.msg);
+      else if(data.state==-1)
+        pubsub.publish("TOAST_INFO","server内部错误");
+      else if(data.state==-5)
+        pubsub.publish("TOAST_INFO","数据库错误");
+      else if(data.state==-100)
+        pubsub.publish("TOAST_INFO","未知错误");
       else
         callback(data);
     }
@@ -112,7 +120,7 @@ export function forjson(url, data,callback) {
       /**
        * jsut mock it
        */
-
+    pubsub.publish("TOAST_INFO","服务器请求错误");
     console.log( e);
   });
   xhr.send(data);

@@ -1,0 +1,25 @@
+
+
+
+.qrdiv:hover{
+ // background-color: rgba(158,158,158,.2);
+ // border-radius: 50%;
+
+//  box-shadow: 0 0 10px 5px blue;
+}
+
+.svgcss{
+  padding:5px;
+ // padding-left:2px;
+  width:15px;
+  height:15px;
+  cursor: pointer
+}
+
+.svgcss:hover{
+  padding:5px;
+
+  width:20px;
+  height:20px;
+  cursor: pointer
+}
