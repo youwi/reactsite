@@ -38,8 +38,12 @@ class ReleaseLineVersion extends React.Component{
         return a.build<b.build;
       });
       console.log("handelSelectAppVersionPlatform");
+
+      if(this.state.buildlist[obj.appid+obj.version] ==null )
+        this.state.buildlist[obj.appid+obj.version]={}
+      data.show=!this.state.buildlist[obj.appid+obj.version].show||false;
       this.state.buildlist[obj.appid+obj.version]=data;
-      this.setState({showid:obj.appid+obj.version,buildlist:this.state.buildlist})
+      this.setState({buildlist:this.state.buildlist});
     });
   }
 
@@ -56,7 +60,7 @@ class ReleaseLineVersion extends React.Component{
 
             this.state.appversion.map((v)=>{
               return (
-              <li key={v.version} className={s.listyle}>
+              <li key={v.version+v.appid} className={s.listyle}>
                 <span className={s.listdate}>
                   <span>{v.version}</span>
                   <svg aria-hidden="true"   height="16" version="1.1" viewBox="0 0 14 16" width="14">
@@ -72,7 +76,7 @@ class ReleaseLineVersion extends React.Component{
                     <Link to="#" onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:'ios'})}>
                       <IconButton name="phone_iphone"></IconButton>ios
                     </Link>
-                      <BuildList appversionbuild={this.state.buildlist[v.appid+v.version]||[]}>
+                      <BuildList  appversionbuild={this.state.buildlist[v.appid+v.version]||[]}>
 
                       </BuildList>
 

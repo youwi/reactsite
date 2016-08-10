@@ -15,13 +15,15 @@ import {Icon,DataTable,TableHeader,IconButton,Button,Dialog,DialogActions,Dialog
 import { forjson  } from "../AjaxJson";
 import s from "./cusstom.css";
 import Qrcodediv from "../Qrcodediv"
-
+import {TweenOneGroup} from 'rc-tween-one';
+import QueueAnim from 'rc-queue-anim';
 
 class BuildList extends React.Component{
 
   constructor(props){
     super(props);
     this.state = {};
+    this.state.count=0;
 
   }
 
@@ -39,28 +41,33 @@ class BuildList extends React.Component{
 
   render() {
 
+
     return (
       <div  >
-        <ul className={s.listyle}>
+        <QueueAnim
+
+          type={['right', 'left']}
+          ease={['easeOutQuart', 'easeInOutQuart']}>
           {
-            this.props.appversionbuild.map((v)=>{
-              return (
-                <li className={s.listlike} key={v.build}>
-                  <spain>build:{v.build}</spain>
-                  <span><a onClick={this.handelDownload.bind(this,v.filename)}
-                           href={"http://127.0.0.1:9090/file/filelink?filename="+v.filename}>下载</a>
-                  </span>
-
-                    <Qrcodediv url={"http://127.0.0.1:9090/file/filelink?filename="+v.filename}></Qrcodediv>
-
-
-
-                </li>
-              )
-            })
+            this.props.appversionbuild.show?
+              <ul className={s.listyle}>
+                {
+                  this.props.appversionbuild.map((v)=>{
+                    return (
+                      <li className={s.listlike} key={v.build+v.appid+v.version+v.platform+Math.random()}>
+                        <spain>build:{v.build}</spain>
+                        <span><a onClick={this.handelDownload.bind(this,v.filename)}
+                                 href={"http://127.0.0.1:9090/file/filelink?filename="+v.filename}>下载</a>
+                        </span>
+                          <Qrcodediv url={"http://127.0.0.1:9090/file/filelink?filename="+v.filename}></Qrcodediv>
+                      </li>
+                    )
+                  })
+                }
+              </ul>
+              :null
           }
-        </ul>
-
+      </QueueAnim>
       </div>
     );
   }
