@@ -51,6 +51,9 @@ class BuildList extends React.Component{
             this.props.appversionbuild.show?
               <ul className={s.listyle}>
                 {
+                  this.props.appversionbuild.length==0?
+                    <li>没有构建</li>
+                    :
                   this.props.appversionbuild.map((v)=>{
                     return (
                       <li className={s.listlike} key={v.build+v.appid+v.version+v.platform+Math.random()}>
