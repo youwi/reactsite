@@ -11,7 +11,7 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import { title, html } from './index.md';
-import AppMainPanel from '../../components/AppLogoPanel/AppMainPanel'
+import AppMainPanel from '../../components/AppMainPanel/AppMainPanel'
 import { connect } from 'react-redux';
 import LoginDialog from "../../components/LoginDialog";
 import { Provider } from 'react-redux';

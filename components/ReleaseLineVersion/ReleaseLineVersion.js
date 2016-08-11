@@ -11,7 +11,7 @@
 import React from 'react';
 import Link from '../Link';
 import pubsub from "pubsub-js";
-import {Icon,DataTable,TableHeader,IconButton,Button,Dialog,DialogActions,DialogContent,DialogTitle,Textfield } from "react-mdl";
+import {Tab,Tabs,Icon,DataTable,TableHeader,IconButton,Button,Dialog,DialogActions,DialogContent,DialogTitle,Textfield } from "react-mdl";
 import { forjson  } from "../AjaxJson";
 import s from "./cusstom.css";
 import BuildList from "../BuildList/BuildList"
@@ -22,12 +22,13 @@ class ReleaseLineVersion extends React.Component{
     super(props);
     this.state = {};
     this.state.buildlist={};
+    this.state.env="dev";
  //   this.state.buildlist={}
     this.state.appversion=this.props.appversion||[];
 
   }
   componentDidMount(){
-    this.setState({appversion:this.props.appversion})
+    this.envTabChange(0);
   }
 
   handelSelectAppVersionPlatform(obj,e){
@@ -37,7 +38,6 @@ class ReleaseLineVersion extends React.Component{
       data.sort((a,b)=>{
         return a.build<b.build;
       });
-      console.log("handelSelectAppVersionPlatform");
 
       if(this.state.buildlist[obj.appid+obj.version] ==null )
         this.state.buildlist[obj.appid+obj.version]={}
@@ -46,15 +46,37 @@ class ReleaseLineVersion extends React.Component{
       this.setState({buildlist:this.state.buildlist});
     });
   }
+  envTabChange(tabId){
+
+
+    var env=["dev","test","slim","prd"];
+    forjson("http://127.0.0.1:9090/getapp.rest",{appid:this.props.appid},(data)=> {
+      data.sort((a, b)=> {
+        return a.version < b.version;
+      });
+      this.setState({env:env[tabId],activeTab: tabId,appversion:data});
+    });
+  }
 
 
 
   render() {
 
     return (
+
       <div>
         <IconButton name="keyboard_arrow_left" onClick={()=>{pubsub.publish("APP_MAIN")}}/>
-
+        <div className="demo-tabs">
+          <Tabs activeTab={this.state.activeTab} onChange={this.envTabChange.bind(this)} ripple>
+            <Tab>dev</Tab>
+            <Tab>test</Tab>
+            <Tab>slim</Tab>
+            <Tab>prd</Tab>
+          </Tabs>
+          <section>
+            <div className="content">当前环境为:{this.state.env}</div>
+          </section>
+        </div>
         <ul>
           {
 
@@ -71,10 +93,10 @@ class ReleaseLineVersion extends React.Component{
                 <div className={s.divmain}>
                   <span>{v.appname}</span><br/>
                   <div className={s.platform} >
-                  <Link to="#" onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:'android'})}>
+                  <Link to="#" onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:'android',env:this.state.env})}>
                         <IconButton name="android"></IconButton>android
                     </Link>
-                    <Link to="#" onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:'ios'})}>
+                    <Link to="#" onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:'ios',env:this.state.env})}>
                       <IconButton name="phone_iphone"></IconButton>ios
                     </Link>
                       <BuildList  appversionbuild={this.state.buildlist[v.appid+v.version]||[]}>

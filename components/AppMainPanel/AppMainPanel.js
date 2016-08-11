@@ -32,7 +32,7 @@ class AppMainPanel extends React.Component {
       // console.log("APP_DETAIL")
     });
     pubsub.subscribe("APP_MAIN",(type,data)=>{
-      this.setState({selected:null});
+      this.setState({selectapp:null});
       // this.setState({ token:data.token});
       // console.log("APP_DETAIL")
     });
@@ -55,26 +55,15 @@ class AppMainPanel extends React.Component {
   };
 
   handelSelectApp(appid,e){
-    console.log(appid);
-   // this.state.selectedapp=e.target.key;
-    this.refs.domappid1;
-    forjson("http://127.0.0.1:9090/getapp.rest",{appid:appid},(data)=>{
 
-      data.sort((a,b)=>{
-        return a.version<b.version;
-      });
-      this.setState({selected:appid,appversion:data});
-
-    });
+      this.setState({selectapp:appid});
   }
 
 
   render() {
-    if(this.state.selected){
+    if(this.state.selectapp){
       return (
-        <ReleaseLineVersion appversion={this.state.appversion}>
-
-        </ReleaseLineVersion>
+        <ReleaseLineVersion appid={this.state.selectapp}></ReleaseLineVersion>
       )
     }else
     return (

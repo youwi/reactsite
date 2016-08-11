@@ -26,15 +26,13 @@ class Navigation extends React.Component {
     pubsub.subscribe("LOGIN_SUCCESS",(type,data)=>{
       this.setState( {username:data.name,token:data.token} );
       console.log("LOGIN_SUCCESS")});
-
-    setTimeout(()=>{
-      forjson("http://127.0.0.1:9090/userinfo.rest",null,(data)=> {
-        this.setState({username: data.username});
-      });
-    },2);
+ 
   }
 
   componentDidMount() {
+    forjson("http://127.0.0.1:9090/userinfo.rest",null,(data)=> {
+      this.setState({username: data.username});
+    });
     window.componentHandler.upgradeElement(this.refs.root);
   }
 
@@ -67,7 +65,7 @@ class Navigation extends React.Component {
         <Link className="mdl-navigation__link" to="#">{this.state.username}
             <IconButton name="account_circle" id="demo-menu-lower-right" />
             <Menu target="demo-menu-lower-right" align="right">
-              <li className="mdl-menu__item" onClick={this.trigerLogoutStep.bind(this)}>注销</li>
+              <li className="mdl-menu__item" onClick={this.trigerLogoutStep.bind(this)}>注销              </li>
               {
                 this.state.username?
                   <li className="mdl-menu__item">{this.state.username}</li>
@@ -78,7 +76,7 @@ class Navigation extends React.Component {
 
             </Menu>
         </Link>
-        <i className="material-icons" onClick={ () => {pubsub.publish("OPEN_UPLOAD_FORM")} }>file_upload</i>
+        <IconButton name="file_upload" className="material-icons" onClick={ () => {pubsub.publish("OPEN_UPLOAD_FORM")} }>file_upload</IconButton>
       </nav>
     );
   }
