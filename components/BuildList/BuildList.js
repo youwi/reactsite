@@ -27,11 +27,11 @@ class BuildList extends React.Component{
 
   }
 
-  handelDownload(filename,e){
+  handelDownload(filelink,e){
     e.preventDefault();
     e.stopPropagation();
-    window.open("http://127.0.0.1:9090/file/filelink?filename="+filename);
-    // forjson("http://127.0.0.1:9090/file/filelink?filename="+filename,null,(data)=>{
+    window.open("http://127.0.0.1:9090/file/filelink?filename="+filelink);
+    // forjson("http://127.0.0.1:9090/file/filelink?filelink="+filelink,null,(data)=>{
     //
     // });
     return false;
@@ -55,10 +55,10 @@ class BuildList extends React.Component{
                     return (
                       <li className={s.listlike} key={v.build+v.appid+v.version+v.platform+Math.random()}>
                         <spain>build:{v.build}</spain>
-                        <span><a onClick={this.handelDownload.bind(this,v.filename)}
-                                 href={"http://127.0.0.1:9090/file/filelink?filename="+v.filename}>下载</a>
+                        <span><a onClick={this.handelDownload.bind(this,v.filelink)}
+                                 href={"http://127.0.0.1:9090/file/filelink?filelink="+v.filelink}>下载</a>
                         </span>
-                          <Qrcodediv url={"http://127.0.0.1:9090/file/filelink?filename="+v.filename}></Qrcodediv>
+                          <Qrcodediv url={"http://127.0.0.1:9090/file/filelink?filelink="+v.filelink}></Qrcodediv>
                       </li>
                     )
                   })

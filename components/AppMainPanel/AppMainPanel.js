@@ -2,7 +2,7 @@
 import React from 'react';
 import s from './custom.css';
 import { Tooltip ,Icon,List,ListItem,ListItemAction,ListItemContent} from 'react-mdl';
-import {  DataTable,TableHeader,CardTitle,Card,CardActions,CardText,Button} from 'react-mdl';
+import { FABButton, DataTable,TableHeader,CardTitle,Card,CardActions,CardText,Button} from 'react-mdl';
 import {forjson } from '../AjaxJson';
 import pubsub from "pubsub-js";
 import { findDOMNode } from 'react-dom';
@@ -74,7 +74,7 @@ class AppMainPanel extends React.Component {
 
             <li className={s.postli} key={app.appid} ref={"domappid"+app.appid}>
               <div className={s.fade}>
-              <Card   shadow={2} style={{width: '150px', height: '150px', margin: '10px',float: "left"}}
+              <Card   shadow={2} style={{width: '100%', height: '150px', margin: '10px',float: "left"}}
                     onClick={this.handelSelectApp.bind(this,app.appid)}>
               <CardTitle expand style={{color: '#fff', background: 'url(http://www.getmdl.io/assets/demos/dog.png) bottom right 15% no-repeat #46B6AC'}}>{app.version}</CardTitle>
               <CardText>{app.appname}</CardText>
@@ -85,8 +85,12 @@ class AppMainPanel extends React.Component {
             )
           })
         }
+        <li className={s.postli} >
 
+          </li>
         </List>
+
+
 
     );
   }
@@ -133,3 +137,7 @@ export default AppMainPanel;
 //   </div>
 //   <div className={s.line}></div>
 // </li>
+
+//        <FABButton ripple>
+// <Icon name="add" />
+// </FABButton>

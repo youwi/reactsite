@@ -50,7 +50,7 @@ class ReleaseLineVersion extends React.Component{
 
 
     var env=["dev","test","slim","prd"];
-    forjson("http://127.0.0.1:9090/getapp.rest",{appid:this.props.appid},(data)=> {
+    forjson("http://127.0.0.1:9090/getapp.rest",{env:env[tabId],appid:this.props.appid},(data)=> {
       data.sort((a, b)=> {
         return a.version < b.version;
       });
