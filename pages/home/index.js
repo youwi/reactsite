@@ -18,6 +18,7 @@ import { Provider } from 'react-redux';
 import Store from "../../core/store.js";
 import {App} from "../../components/TodoApp/TodoApp";
 import GlobalToast from "../../components/GlobalToast";
+import UploadForm from "../../components/UploadAppForm"
 
 class HomePage extends React.Component {
 
@@ -32,6 +33,7 @@ class HomePage extends React.Component {
           <LoginDialog openDialog={this.props.openDialog}></LoginDialog>
             <AppMainPanel></AppMainPanel>
           <GlobalToast></GlobalToast>
+          <UploadForm></UploadForm>
         </Layout>
       </Provider>
     );

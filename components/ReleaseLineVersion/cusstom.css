@@ -24,3 +24,9 @@
 .listyle{
   list-style-type:none
 }
+.platform :hover{
+  color: blue;
+  background: #e1dcf5;
+  box-shadow: 0 0 5px 5px #e1dcf5;
+  border-radius: 5px;
+}

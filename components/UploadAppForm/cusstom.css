@@ -24,18 +24,8 @@
 .listyle{
   list-style-type:none
 }
-.listlike{
 
-}
-
-.hide{
-  display: none;
-}
-.show{
-  display:block;
-}
-
-
-.buildlist{
-  background: rgba(97, 208, 94, 0.11);
+.fix div span{
+  display: inline !important;
+  margin-left: 10px;
 }

@@ -33,6 +33,7 @@ export function forjson(url, data,callback) {
 
   xhr.addEventListener('readystatechange', function() {
     if(4 === xhr.readyState && 200 === xhr.status) {
+     // if(url.indexOf("/file/")>0)
         let data = JSON.parse(xhr.responseText);
       if(data.token) {
         globalToken=data.token;

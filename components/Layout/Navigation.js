@@ -26,7 +26,7 @@ class Navigation extends React.Component {
     pubsub.subscribe("LOGIN_SUCCESS",(type,data)=>{
       this.setState( {username:data.name,token:data.token} );
       console.log("LOGIN_SUCCESS")});
-    
+
     setTimeout(()=>{
       forjson("http://127.0.0.1:9090/userinfo.rest",null,(data)=> {
         this.setState({username: data.username});
@@ -78,6 +78,7 @@ class Navigation extends React.Component {
 
             </Menu>
         </Link>
+        <i className="material-icons" onClick={ () => {pubsub.publish("OPEN_UPLOAD_FORM")} }>file_upload</i>
       </nav>
     );
   }

@@ -30,11 +30,10 @@ class BuildList extends React.Component{
   handelDownload(filename,e){
     e.preventDefault();
     e.stopPropagation();
-    forjson("http://127.0.0.1:9090/file/filelink?filename="+filename,null,(data)=>{
-
-    });
-
-
+    window.open("http://127.0.0.1:9090/file/filelink?filename="+filename);
+    // forjson("http://127.0.0.1:9090/file/filelink?filename="+filename,null,(data)=>{
+    //
+    // });
     return false;
   }
 
@@ -43,7 +42,7 @@ class BuildList extends React.Component{
 
 
     return (
-      <div  >
+      <div  className={s.buildlist}>
         <QueueAnim
 
           type={['right', 'left']}

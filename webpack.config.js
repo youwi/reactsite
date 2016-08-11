@@ -94,6 +94,7 @@ const config = {
           cacheDirectory: useHMR,
         }),
       },
+      { test: /\.(less)$/, loader: 'style-loader!css-loader!postcss-loader!less-loader' },
       {
         test: /\.css/,
         loaders: [

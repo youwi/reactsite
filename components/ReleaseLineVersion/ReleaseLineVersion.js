@@ -70,6 +70,7 @@ class ReleaseLineVersion extends React.Component{
 
                 <div className={s.divmain}>
                   <span>{v.appname}</span><br/>
+                  <div className={s.platform} >
                   <Link to="#" onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:'android'})}>
                         <IconButton name="android"></IconButton>android
                     </Link>
@@ -79,7 +80,7 @@ class ReleaseLineVersion extends React.Component{
                       <BuildList  appversionbuild={this.state.buildlist[v.appid+v.version]||[]}>
 
                       </BuildList>
-
+                  </div>
                 </div>
 
               </li>
