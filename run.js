@@ -51,12 +51,13 @@ tasks.set('html', () => {
 });
 
 tasks.set('build-release', () => {
-  const webpackConfig = require('./webpack.config');
-  const assets = JSON.parse(fs.readFileSync('./public/dist/assets.json', 'utf8'));
-  const template = fs.readFileSync('./public/index.ejs', 'utf8');
-  const render = ejs.compile(template, { filename: './public/index.ejs' });
-  const output = render({ debug: webpackConfig.debug, bundle: assets.main.js, config });
-  fs.writeFileSync('./public/index.html', output, 'utf8');
+  var  hostport=JSON.parse(fs.readFileSync(("./env.json")));
+  // const webpackConfig = require('./webpack.config');
+  // const assets = JSON.parse(fs.readFileSync('./public/dist/assets.json', 'utf8'));
+  // const template = fs.readFileSync('./public/index.ejs', 'utf8');
+  // const render = ejs.compile(template, { filename: './public/index.ejs' });
+  // const output = render({ debug: webpackConfig.debug, bundle: assets.main.js, config });
+  // fs.writeFileSync('./public/index.html', output, 'utf8');
 });
 
 //
@@ -93,11 +94,12 @@ tasks.set('bundle', () => {
 // Build website into a distributable format
 // -----------------------------------------------------------------------------
 tasks.set('build', () => Promise.resolve()
+  .then(() => run("build-release"))
   .then(() => run('clean'))
   .then(() => run('bundle'))
   .then(() => run('html'))
   .then(() => run('sitemap'))
-  .then(() => run("build-release"))
+
 );
 
 //

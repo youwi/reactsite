@@ -30,7 +30,7 @@ class BuildList extends React.Component{
   handelDownload(filelink,e){
     e.preventDefault();
     e.stopPropagation();
-    window.open("http://127.0.0.1:9090/file/filelink?filename="+filelink);
+    window.open("http://10.0.18.47:8101/file/filelink?filename="+filelink);
     // forjson("http://127.0.0.1:9090/file/filelink?filelink="+filelink,null,(data)=>{
     //
     // });
