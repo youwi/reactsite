@@ -5,7 +5,9 @@
  */
 
 import pubsub from "pubsub-js";
+import porcess from "process";
 var globalToken=null;
+import ip from '../../env.json';
 
 pubsub.subscribe("LOGIN_OUT",()=>{globalToken=null});
 
@@ -13,7 +15,8 @@ export function forjson(url, data,callback) {
 
   //var os = require("os");
   //var hostname = os.hostname();
-  var hostport="10.0.18.47:8101";
+
+  var hostport=ip.ip;
  // var hostport="127.0.0.1:8080";
   url=url.replace(/(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]):\d+/,hostport);
 

@@ -13,6 +13,7 @@ import pubsub from "pubsub-js"
 import {Form,FormControl,FormSubmit,Button,Modal,Icon} from "rctui";
 import {forjson} from "../AjaxJson"
 import s from "./cusstom.css"
+import env from "../../env.json"
 
 class UploadForm extends React.Component{
 
@@ -105,7 +106,7 @@ class UploadForm extends React.Component{
                               label="上传文件"
                               type="upload"
                               grid={1/2}
-                              action="http://10.0.18.47:8101/uploadrsid.rest"
+                              action={"http://"+env.ip+"/uploadrsid.rest"}
                               accept="*/*"
                               fileSize={300000000}
                               limit={1}

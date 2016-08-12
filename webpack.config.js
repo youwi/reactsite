@@ -87,6 +87,7 @@ const config = {
           path.resolve(__dirname, './core'),
           path.resolve(__dirname, './pages'),
           path.resolve(__dirname, './main.js'),
+          path.resolve(__dirname, './env.js'),
         ],
         loader: 'babel-loader',
         query: extend({}, pkg.babel, {
@@ -193,6 +194,7 @@ const config = {
 
 // Optimize the bundle in release (production) mode
 if (!isDebug) {
+
   config.plugins.push(new webpack.optimize.DedupePlugin());
   config.plugins.push(new webpack.optimize.UglifyJsPlugin({ compress: { warnings: isVerbose } }));
   config.plugins.push(new webpack.optimize.AggressiveMergingPlugin());

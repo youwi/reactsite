@@ -17,6 +17,7 @@ import s from "./cusstom.css";
 import Qrcodediv from "../Qrcodediv"
 import {TweenOneGroup} from 'rc-tween-one';
 import QueueAnim from 'rc-queue-anim';
+import env from "../../env.json"
 
 class BuildList extends React.Component{
 
@@ -30,7 +31,8 @@ class BuildList extends React.Component{
   handelDownload(filelink,e){
     e.preventDefault();
     e.stopPropagation();
-    window.open("http://10.0.18.47:8101/file/filelink?filename="+filelink);
+
+    window.open("http://"+env.ip+"/file/filelink?filename="+filelink);
     // forjson("http://127.0.0.1:9090/file/filelink?filelink="+filelink,null,(data)=>{
     //
     // });
@@ -59,9 +61,9 @@ class BuildList extends React.Component{
                       <li className={s.listlike} key={v.build+v.appid+v.version+v.platform+Math.random()}>
                         <spain>build:{v.build}</spain>
                         <span><a onClick={this.handelDownload.bind(this,v.filelink)}
-                                 href={"http://127.0.0.1:9090/file/filelink?filelink="+v.filelink}>下载</a>
+                                 href={"http://"+env.ip+"/file/filelink?filelink="+v.filelink}>下载</a>
                         </span>
-                          <Qrcodediv url={"http://127.0.0.1:9090/file/filelink?filelink="+v.filelink}></Qrcodediv>
+                          <Qrcodediv url={"http://"+env.ip+"/file/filelink?filelink="+v.filelink}></Qrcodediv>
                       </li>
                     )
                   })
