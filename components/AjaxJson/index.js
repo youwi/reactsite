@@ -11,9 +11,9 @@ pubsub.subscribe("LOGIN_OUT",()=>{globalToken=null});
 
 export function forjson(url, data,callback) {
 
-
-
-  var hostport="127.0.0.1:9090";
+  //var os = require("os");
+  //var hostname = os.hostname();
+  var hostport="10.0.18.47/:8101";
 
   url=url.replace(/(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]):\d+/,hostport);
 
