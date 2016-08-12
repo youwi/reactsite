@@ -50,6 +50,15 @@ tasks.set('html', () => {
   fs.writeFileSync('./public/index.html', output, 'utf8');
 });
 
+tasks.set('build-release', () => {
+  const webpackConfig = require('./webpack.config');
+  const assets = JSON.parse(fs.readFileSync('./public/dist/assets.json', 'utf8'));
+  const template = fs.readFileSync('./public/index.ejs', 'utf8');
+  const render = ejs.compile(template, { filename: './public/index.ejs' });
+  const output = render({ debug: webpackConfig.debug, bundle: assets.main.js, config });
+  fs.writeFileSync('./public/index.html', output, 'utf8');
+});
+
 //
 // Generate sitemap.xml
 // -----------------------------------------------------------------------------
@@ -88,6 +97,7 @@ tasks.set('build', () => Promise.resolve()
   .then(() => run('bundle'))
   .then(() => run('html'))
   .then(() => run('sitemap'))
+  .then(() => run("build-release"))
 );
 
 //
@@ -95,14 +105,9 @@ tasks.set('build', () => Promise.resolve()
 // -----------------------------------------------------------------------------
 tasks.set('publish', () => {
   global.DEBUG = process.argv.includes('--debug') || false;
-  const firebase = require('firebase-tools');
+
   return run('build')
-    .then(() => firebase.login({ nonInteractive: false }))
-    .then(() => firebase.deploy({
-      project: config.project,
-      cwd: __dirname,
-    }))
-    .then(() => { setTimeout(() => process.exit()); });
+
 });
 
 //

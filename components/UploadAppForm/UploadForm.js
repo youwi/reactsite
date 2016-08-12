@@ -105,7 +105,7 @@ class UploadForm extends React.Component{
                               label="上传文件"
                               type="upload"
                               grid={1/2}
-                              action="http://127.0.0.1:9090/uploadrsid.rest"
+                              action="http://10.0.18.47:8101/uploadrsid.rest"
                               accept="*/*"
                               fileSize={300000000}
                               limit={1}
