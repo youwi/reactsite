@@ -7,8 +7,9 @@ import {forjson } from '../AjaxJson';
 import pubsub from "pubsub-js";
 import { findDOMNode } from 'react-dom';
 import  ReleaseLineVersion  from "../ReleaseLineVersion"
+import  ReleaseLinePlatform  from "../ReleaseLinePlatform"
 import Qrcodediv from '../Qrcodediv';
-
+import history from '../../core/history';
 
 
 
@@ -20,11 +21,11 @@ class AppMainPanel extends React.Component {
     this.state.allapplist=[];
     this.state.appversion=[];
 
-    setTimeout(()=>{
+    pubsub.subscribe("APP_MAIN_RELOAD",()=>{
       forjson("http://127.0.0.1:9090/getallapp.rest",{token:'123'},(data)=>{
-          this.setState({allapplist:data||[]});
+        this.setState({allapplist:data||[]});
       });
-    },2);
+    });
 
     pubsub.subscribe("APP_DETAIL",(type,data)=>{
       // this.setState( {appid:data.appid} );
@@ -41,7 +42,9 @@ class AppMainPanel extends React.Component {
 
 
   componentDidMount() {
-
+    forjson("http://127.0.0.1:9090/getallapp.rest",{token:'123'},(data)=>{
+      this.setState({allapplist:data||[]});
+    });
     // console.log("121323123131");
     // document.title = "App分发平台";
     // this.state.allapplist=this.allapplist;
@@ -62,8 +65,9 @@ class AppMainPanel extends React.Component {
 
   render() {
     if(this.state.selectapp){
+      //history.
       return (
-        <ReleaseLineVersion appid={this.state.selectapp}></ReleaseLineVersion>
+        <ReleaseLinePlatform appid={this.state.selectapp}></ReleaseLinePlatform>
       )
     }else
     return (
@@ -72,11 +76,11 @@ class AppMainPanel extends React.Component {
         {   this.state.allapplist.map( (app)=> {
             return (
 
-            <li className={s.postli} key={app.appid} ref={"domappid"+app.appid}>
+            <li className={s.postli} key={app.appid} ref={"domappid"+app.id}>
               <div className={s.fade}>
               <Card   shadow={2} style={{width: '100%', height: '150px', margin: '10px',float: "left"}}
-                    onClick={this.handelSelectApp.bind(this,app.appid)}>
-              <CardTitle expand style={{color: '#fff', background: 'url(http://www.getmdl.io/assets/demos/dog.png) bottom right 15% no-repeat #46B6AC'}}>{app.version}</CardTitle>
+                    onClick={this.handelSelectApp.bind(this,app.id)}>
+              <CardTitle expand style={{color: '#fff', background: 'url('+app.appicon+') bottom right 15% no-repeat #46B6AC'}}>{app.version}</CardTitle>
               <CardText>{app.appname}</CardText>
             </Card>
                 </div>
@@ -85,8 +89,10 @@ class AppMainPanel extends React.Component {
             )
           })
         }
-        <li className={s.postli} >
-
+        <li className={s.postli+" "+s.whitehide} >
+           <FABButton ripple onClick={()=>pubsub.publish("OPEN_ADD_APP_FORM")}>
+              <Icon name="add" />
+          </FABButton>
           </li>
         </List>
 
@@ -138,6 +144,4 @@ export default AppMainPanel;
 //   <div className={s.line}></div>
 // </li>
 
-//        <FABButton ripple>
-// <Icon name="add" />
-// </FABButton>
+

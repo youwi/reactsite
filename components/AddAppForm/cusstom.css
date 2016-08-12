@@ -1,0 +1,31 @@
+
+.listdate{
+  width: 20%;
+  padding-left: 0;
+  line-height: 40px;
+  color: #767676;
+  text-align: right;
+  float:left;
+  list-style-type:none
+}
+
+.divmain{
+
+  width: 60%;
+  border-left: 2px solid #eee;
+  position: relative;
+  float: left;
+  padding: 10px;
+}
+
+.left{
+  float:left
+}
+.listyle{
+  list-style-type:none
+}
+
+.fix div span{
+  display: inline !important;
+  margin-left: 10px;
+}

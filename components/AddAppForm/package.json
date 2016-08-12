@@ -1,0 +1,6 @@
+{
+  "name": "AddAppForm",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./AddAppForm.js"
+}

@@ -1,0 +1,15 @@
+
+.fix a{
+  text-decoration: none;
+  cursor:pointer;
+
+}
+
+.fix {
+  text-decoration: none;
+  cursor:pointer;
+  border: 1px solid #eeba0f;
+  border-radius:3px;
+  margin-left: 5px;
+  text-decoration: none
+}

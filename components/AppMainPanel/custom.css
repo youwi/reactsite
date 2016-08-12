@@ -1,4 +1,10 @@
 
+.whitehide button{
+  color:  white!important;
+  background:  white;
+  box-shadow: 0 0 0 0;
+}
+
 .fade :hover{
   //opacity: 0.7;
  // position: fixed;

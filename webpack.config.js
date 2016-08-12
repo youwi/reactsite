@@ -94,7 +94,7 @@ const config = {
           cacheDirectory: useHMR,
         }),
       },
-      { test: /\.(less)$/, loader: 'style-loader!css-loader!postcss-loader!less-loader' },
+      { test: /\.(less)$/, loader: 'style-loader!css-loader!less-loader' },
       {
         test: /\.css/,
         loaders: [
@@ -110,7 +110,7 @@ const config = {
           'postcss-loader',
         ],
       },
-      { test: /\.(less)$/, loader: 'less-loader' },
+    //  { test: /\.(less)$/, loader: 'less-loader' },
     //  {test: /\.less$/, loader: 'style!css!less'},
       {
         test: /\.json$/,
@@ -145,6 +145,7 @@ const config = {
   // https://github.com/postcss/postcss
   postcss(bundler) {
     return [
+      require('precss')(),
       // Transfer @import rule by inlining content, e.g. @import 'normalize.css'
       // https://github.com/postcss/postcss-import
       require('postcss-import')({ addDependencyTo: bundler }),
@@ -184,6 +185,7 @@ const config = {
       // Add vendor prefixes to CSS rules using values from caniuse.com
       // https://github.com/postcss/autoprefixer
       require('autoprefixer')(),
+
     ];
   },
 

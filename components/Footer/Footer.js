@@ -11,6 +11,7 @@
 import React from 'react';
 import Link from '../Link';
 
+//
 function Footer() {
   return (
     <footer className="mdl-mini-footer"     style={{ bottom: '0px',position: 'fixed',width: '100%',padding:'1px 16px'}}>
