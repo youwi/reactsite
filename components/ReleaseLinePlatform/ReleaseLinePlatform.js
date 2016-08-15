@@ -16,6 +16,7 @@ import { forjson  } from "../AjaxJson";
 import s from "./cusstom.css";
 import BuildList from "../BuildList/BuildList";
 import SLabel from "../SLabel";
+import ReleaseLineVersion from "../ReleaseLineVersion"
 
 class ReleaseLinePlatform extends React.Component{
 
@@ -26,9 +27,11 @@ class ReleaseLinePlatform extends React.Component{
     this.state.ioslist=[];
     this.state.androidlist=[];
     this.state.env="dev";
+    this.state.active=[{a:"false"},{a:"false"},{a:"false"},{a:"false"}];
     //   this.state.buildlist={}
     this.state.appversion=this.props.appversion||[];
-
+    this.state.clickcount=0;
+    this.activeOne.bind(this);
   }
   componentDidMount(){
     this.envTabChange(0);
@@ -36,20 +39,40 @@ class ReleaseLinePlatform extends React.Component{
 
   handelSelectAppVersionPlatform(obj,e){
 
-    console.log("...");
     forjson("http://127.0.0.1:9090/getappbuild.rest",obj,(data)=>{
+      this.state.clickcount++;
+      var cid=obj.appid+obj.version+obj.platform;
       data.sort((a,b)=>{
         return a.build<b.build;
       });
+      if(this.state.buildlist[cid] ==null )
+        this.state.buildlist[cid]={};
+      //data.show=!this.state.buildlist[obj.appid+obj.version+obj.platform].show||false;
+      data.show=true;
 
+      if( this.state.currbuildlistdom==cid+obj.env){
+        data.show=false;
+        if(this.state.clickcount%2==1)
+          data.show=true;
+      }
+      else{
+        this.state.currbuildlistdom=cid+obj.env;
+        data.show=true;
+        this.state.clickcount=1;
+      }
 
-      if(this.state.buildlist[obj.appid+obj.version] ==null )
-        this.state.buildlist[obj.appid+obj.version]={}
-      data.show=!this.state.buildlist[obj.appid+obj.version].show||false;
-      this.state.buildlist[obj.appid+obj.version]=data;
-      this.setState({buildlist:this.state.buildlist});
+      this.state.buildlist[cid]=data;
+      this.setState({buildlist:this.state.buildlist,active:this.state.active});
     });
+    this.activeOne(obj);
   }
+
+  activeOne(obj){
+    ['dev','test','slim','prd'].map((item,i)=>{
+      obj.env==item?this.state.active[i].a="true":this.state.active[i].a="false";
+    })
+  }
+
   envTabChange(tabId){
 
 
@@ -74,7 +97,8 @@ class ReleaseLinePlatform extends React.Component{
 
 
   render() {
-
+    if(this.state.gotoVersion)
+      return <ReleaseLineVersion appid={this.props.appid}/>
     return (
 
       <div>
@@ -106,11 +130,11 @@ class ReleaseLinePlatform extends React.Component{
                                 <div className={s.divmain}>
                                   <span>{v.appname}</span><br/>
                                   <div className={s.platform} >
-                                    <SLabel onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:'android',env:'dev'})}>dev</SLabel>
-                                    <SLabel onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:'android',env:'test'})}>test</SLabel>
-                                    <SLabel onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:'android',env:'slim'})}>slim</SLabel>
-                                    <SLabel onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:'android',env:'prd'})}>prd</SLabel>
-                                    <BuildList  appversionbuild={this.state.buildlist[v.appid+v.version]||[]}>
+                                    <SLabel active={this.state.active[0]}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'dev'})}>dev</SLabel>
+                                    <SLabel active={this.state.active[1]}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'test'})}>test</SLabel>
+                                    <SLabel active={this.state.active[2]}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'slim'})}>slim</SLabel>
+                                    <SLabel active={this.state.active[3]}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'prd'})}>prd</SLabel>
+                                    <BuildList  appversionbuild={this.state.buildlist[v.appid+v.version+platformname]||[]}>
                                     </BuildList>
                                   </div>
                                 </div>
@@ -146,7 +170,7 @@ class ReleaseLinePlatform extends React.Component{
         </div>
 
         <br/>
-        <IconButton name="keyboard_arrow_right" style={{    position: 'fixed',top: '50%' ,right:'10%'}} onClick={()=>{pubsub.publish("APP_MAIN")}}/>
+        <IconButton name="keyboard_arrow_right" style={{    position: 'fixed',top: '50%' ,right:'10%'}} onClick={()=>{pubsub.publish("APP_RELEASE_LINE_VERSION"),this.setState({gotoVersion:true})}}/>
 
 
       </div>

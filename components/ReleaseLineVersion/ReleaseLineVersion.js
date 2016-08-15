@@ -25,6 +25,7 @@ class ReleaseLineVersion extends React.Component{
     this.state.env="dev";
  //   this.state.buildlist={}
     this.state.appversion=this.props.appversion||[];
+    this.state.clickcount=0;
 
   }
   componentDidMount(){
@@ -35,14 +36,27 @@ class ReleaseLineVersion extends React.Component{
 
 
     forjson("http://127.0.0.1:9090/getappbuild.rest",obj,(data)=>{
+      this.state.clickcount++;
+      var cid=obj.appid+obj.version;//+obj.platform+obj.env;
       data.sort((a,b)=>{
         return a.build<b.build;
       });
 
-      if(this.state.buildlist[obj.appid+obj.version] ==null )
-        this.state.buildlist[obj.appid+obj.version]={}
-      data.show=!this.state.buildlist[obj.appid+obj.version].show||false;
-      this.state.buildlist[obj.appid+obj.version]=data;
+      if(this.state.buildlist[cid] ==null )
+        this.state.buildlist[cid]={}
+      //data.show=!this.state.buildlist[obj.appid+obj.version].show||false;
+      if( this.state.currbuildlistdom==cid){
+        data.show=false;
+        if(this.state.clickcount%2==1)
+          data.show=true;
+      }
+      else{
+        this.state.currbuildlistdom=cid;
+        data.show=true;
+        this.state.clickcount=1;
+      }
+
+      this.state.buildlist[cid]=data;
       this.setState({buildlist:this.state.buildlist});
     });
   }
@@ -65,7 +79,7 @@ class ReleaseLineVersion extends React.Component{
     return (
 
       <div>
-        <IconButton name="keyboard_arrow_left" onClick={()=>{pubsub.publish("APP_MAIN")}}/>
+        <IconButton name="keyboard_arrow_left" style={{position: 'fixed',top: '50%'}} onClick={()=>{pubsub.publish("APP_MAIN")}}/>
         <div className="demo-tabs">
           <Tabs activeTab={this.state.activeTab} onChange={this.envTabChange.bind(this)} ripple>
             <Tab>dev</Tab>
@@ -74,13 +88,14 @@ class ReleaseLineVersion extends React.Component{
             <Tab>prd</Tab>
           </Tabs>
           <section>
-            <div className="content">当前环境为:{this.state.env}</div>
+
           </section>
         </div>
         <ul>
           {
 
             this.state.appversion.map((v)=>{
+              var vid=v.appid+v.version;//+this.state.env;
               return (
               <li key={v.version+v.appid} className={s.listyle}>
                 <span className={s.listdate}>
@@ -99,7 +114,7 @@ class ReleaseLineVersion extends React.Component{
                     <Link to="#" onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:'ios',env:this.state.env})}>
                       <IconButton name="phone_iphone"></IconButton>ios
                     </Link>
-                      <BuildList  appversionbuild={this.state.buildlist[v.appid+v.version]||[]}>
+                      <BuildList  appversionbuild={this.state.buildlist[vid]||[]}>
 
                       </BuildList>
                   </div>
