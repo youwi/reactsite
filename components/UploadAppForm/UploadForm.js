@@ -101,7 +101,7 @@ class UploadForm extends React.Component{
                  <FormControl className={s.fix} name="build"   grid={2/8} required={true} label="构建号"  type="integer"/>
                  <FormControl className={s.fix} name="env"     grid={2/8} required={true} label="环境名" type="text"/>
                  <FormControl className={s.fix} name="platform"     grid={2/8} required={true} label="平台" type="text"/>
-                 <FormControl className={s.fix} name="revision"     grid={2/8} required={true} label="评审号" type="integer"/>
+                 <FormControl className={s.fix} name="revision"     grid={2/8} required={true} label="revision" type="integer"/>
                  <FormControl name="file"
                               label="上传文件"
                               type="upload"

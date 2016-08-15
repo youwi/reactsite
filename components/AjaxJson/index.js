@@ -42,8 +42,11 @@ export function forjson(url, data,callback) {
         globalToken=data.token;
         localStorage.token=data.token;
       }
+      if(  url.indexOf("/userinfo.rest")>0 && data.state==-1)
+        return data;
+
       if(data.state==0)
-        pubsub.publish("OPEN_LOGIN_DIALOG");
+        pubsub.publish("OPEN_LOGIN_DIALOG",data.msg);
       else if(data.state==-4)
         pubsub.publish("TOAST_INFO",data.msg);
       else if(data.state==-1)

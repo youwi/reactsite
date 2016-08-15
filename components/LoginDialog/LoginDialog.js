@@ -13,13 +13,14 @@ import Link from '../Link';
 import pubsub from "pubsub-js";
 import {Button,Dialog,DialogActions,DialogContent,DialogTitle,Textfield } from "react-mdl";
 import { forjson  } from "../AjaxJson";
+import { findDOMNode } from 'react-dom';
 
 class LoginDialog extends React.Component{
 
   constructor(props){
     super(props);
     this.state = {};
-    this.state.username="SD";
+    this.state.username="";
     this.state.openDialog=this.props.openDialog||false;
     console.log("    this.state.openDialog:"+    this.state.openDialog);
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
@@ -31,11 +32,14 @@ class LoginDialog extends React.Component{
 
   }
 
-  handleOpenDialog(){
+  handleOpenDialog(id,msg){
     console.log("handleOpenDialog");
+    var dd= findDOMNode(this.refs.dia);
+    this.state.msg=msg;
     this.setState({
       openDialog: true
     });
+    dd.style.top='100px';
   }
 
   handleCloseDialog() {
@@ -57,13 +61,25 @@ class LoginDialog extends React.Component{
     // // });
   }
 
+  componentDidMount(){
+    //this.refs.dia.style.top='100px';
+    this.refs.dia;
+  }
+
+  handleEnter(o,e){
+
+   // console.log(o.key);
+    if(o.key=="Enter")
+      this.loginStep3();
+  }
+
   render() {
 
     return (
-      <div id="aa77">
+      <div onKeyDown={this.handleEnter.bind(this)}>
 
-         <Dialog open={this.state.openDialog} onCancel={this.handleCloseDialog}>
-          <DialogTitle>输入</DialogTitle>
+         <Dialog ref='dia' open={this.state.openDialog} onCancel={this.handleCloseDialog} style={{top:'100px'}}>
+          <DialogTitle>认证</DialogTitle>
           <DialogContent>
             <form>
             <Textfield value={this.state.username}
@@ -79,9 +95,10 @@ class LoginDialog extends React.Component{
               style={{width: '200px'}}
             />
               </form>
+            {this.state.msg}
           </DialogContent>
-          <DialogActions>
 
+          <DialogActions>
             <Button type='button' raised accent ripple onClick={this.loginStep3}>登陆</Button>
           </DialogActions>
         </Dialog>

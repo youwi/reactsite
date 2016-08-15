@@ -25,8 +25,9 @@ class Layout extends React.Component {
   }
 //style={{height: '30px', position: 'relative','min-height':'34px'}}
   render() {
+    var hi=window.screen.availHeight > document.body.clientHeight*2?window.screen.availHeight:document.body.clientHeight-25;
     return (
-      <div className={s.fixnav} className="mdl-layout mdl-js-layout" ref="root">
+      <div className={s.fixnav} className="mdl-layout mdl-js-layout"   ref="root">
         <div className="mdl-layout__inner-container">
           <Header>
             <span className="mdl-layout-title  ">App分发</span>
@@ -34,8 +35,8 @@ class Layout extends React.Component {
             <Navigation />
           </Header>
           <main className="mdl-layout__content">
-            <div className={s.content} {...this.props} />
-            
+            <div className={s.content} {...this.props}  style={{overflow: 'scroll',height:hi+'px'}}/>
+
             <Footer />
           </main>
         </div>
@@ -45,3 +46,4 @@ class Layout extends React.Component {
 }
 
 export default Layout;
+//

@@ -63,7 +63,7 @@ class Qrcodediv extends React.Component {
         </g>
       </svg>
         <span style={{display:this.state.display}} >
-        <QRCode renderer="canvas" content={this.props.url} scale="5" margin="20" background="white" foreground="green" />
+        <QRCode renderer="canvas" content={this.props.url} scale="4" margin="20" background="white" foreground="green" />
       </span>
         </span>
 

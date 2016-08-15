@@ -61,7 +61,7 @@ class AppMainPanel extends React.Component {
 
       this.setState({selectapp:appid});
   }
-
+// style={{visibility:this.state.hidden? 'hidden':'visible'}}
 
   render() {
     if(this.state.selectapp){
@@ -72,15 +72,15 @@ class AppMainPanel extends React.Component {
     }else
     return (
 
-      <List  >
+      <List >
         {   this.state.allapplist.map( (app)=> {
             return (
 
-            <li className={s.postli} key={app.appid} ref={"domappid"+app.id}>
+            <li className={s.postli} key={app.id} ref={"domappid"+app.id}>
               <div className={s.fade}>
               <Card   shadow={2} style={{width: '100%', height: '150px', margin: '10px',float: "left"}}
                     onClick={this.handelSelectApp.bind(this,app.id)}>
-              <CardTitle expand style={{color: '#fff', background: 'url('+app.appicon+') bottom right 15% no-repeat #46B6AC'}}>{app.version}</CardTitle>
+              <CardTitle expand style={{color: '#fff', background: 'url('+app.appicon+') center no-repeat #46B6AC'}}>{app.version}</CardTitle>
               <CardText>{app.appname}</CardText>
             </Card>
                 </div>

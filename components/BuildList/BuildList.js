@@ -11,7 +11,7 @@
 import React from 'react';
 import Link from '../Link';
 import pubsub from "pubsub-js";
-import {Icon,DataTable,TableHeader,IconButton,Button,Dialog,DialogActions,DialogContent,DialogTitle,Textfield } from "react-mdl";
+import {Tooltip,IconToggle,Icon,DataTable,TableHeader,IconButton,Button,Dialog,DialogActions,DialogContent,DialogTitle,Textfield } from "react-mdl";
 import { forjson  } from "../AjaxJson";
 import s from "./cusstom.css";
 import Qrcodediv from "../Qrcodediv"
@@ -59,11 +59,24 @@ class BuildList extends React.Component{
                   this.props.appversionbuild.map((v)=>{
                     return (
                       <li className={s.listlike} key={v.build+v.appid+v.version+v.platform+Math.random()}>
-                        <spain>build:{v.build}</spain>
-                        <span><a onClick={this.handelDownload.bind(this,v.filelink)}
-                                 href={"http://"+env.ip+"/file/filelink?filelink="+v.filelink}>下载</a>
-                        </span>
+                        <span>build:{v.build}</span>
+                        <Tooltip label="复制连接" large position="top">
+                          <IconButton
+                            className={s.myfontsize}
+                            name="content_copy">
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip label="点击下载(右键可以复制链接)" large position="top">
+                            <IconButton
+                              name="file_download"
+                              onClick={this.handelDownload.bind(this,v.filelink)}
+                              href={"http://"+env.ip+"/file/filelink?filelink="+v.filelink}>
+                            </IconButton>
+                          </Tooltip>
+
+
                           <Qrcodediv url={"http://"+env.ip+"/file/filelink?filelink="+v.filelink}></Qrcodediv>
+                     
                       </li>
                     )
                   })
@@ -80,4 +93,5 @@ class BuildList extends React.Component{
 export default BuildList;
 /*
  //<QrcodeSpan></QrcodeSpan>
+ <Icon name="file_download" className={s.svgcss}></Icon>
  */

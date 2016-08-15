@@ -11,15 +11,15 @@
 import React from 'react';
 import Link from '../Link';
 
-//
+//position: ' '
 function Footer() {
   return (
-    <footer className="mdl-mini-footer"     style={{ bottom: '0px',position: 'fixed',width: '100%',padding:'1px 16px'}}>
+    <footer className="mdl-mini-footer"     style={{ bottom: '0px',width: '100%',padding:'1px 16px'}}>
       <div className="mdl-mini-footer__left-section">
         <div className="mdl-logo">© wkzf QA team</div>
         <ul className="mdl-mini-footer__link-list">
           <li><Link to="/privacy">Privacy & Terms</Link></li>
-          <li><Link to="/not-found">About</Link></li>
+          <li><Link to="/about">About</Link></li>
         </ul>
       </div>
       <div className="mdl-mini-footer__right-section">

@@ -9,9 +9,10 @@
  */
 
 .content {
-  width: 100%;
-  max-width: 1000px;
+  width: 80%;
+ // max-width: 1000px;
   margin: 0 auto;
+  min-height: 500px;
 }
 
 .fixnav{
