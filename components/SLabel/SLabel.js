@@ -24,19 +24,19 @@ class SLabel extends React.Component {
     this.state.clicked=props.active.a||false;
   }
   componentDidMount(){
-    if(this.props.active.a=="true")
-      this.refs.mm.style.background='#61f161 ';
-    else
-      this.refs.mm.style.background="#edfaed";
+    // if(this.props.active.a=="true")
+    //   this.refs.mm.style.background='#61f161 ';
+    // else
+    //   this.refs.mm.style.background="#edfaed";
   }
 
   handleClick = (event) => {
     //console.log("...AA");
     this.props.onClick(event);
-    if(this.props.active.a=="true")
-      this.refs.mm.style.background='#61f161';
-    else
-      this.refs.mm.style.background="#edfaed";
+    // if(this.props.active.a=="true")
+    //   this.refs.mm.style.background='#61f161';
+    // else
+    //   this.refs.mm.style.background="#edfaed";
     this.setState({clicked:this.props.active});
     this.state.clicked=!this.state.clicked;
     //+" "+this.state.clicked?s.bk:""
@@ -44,7 +44,7 @@ class SLabel extends React.Component {
 
   render() {
     return <span ref="mm"
-    className={this.props.active.a=="true"?s.fix:s.bk}
+    className={this.props.active.a=="true"?s.bk:s.fix}
       onClick={this.handleClick.bind(this)}
     >{this.props.children}</span>
   }

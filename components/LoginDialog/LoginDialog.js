@@ -30,10 +30,25 @@ class LoginDialog extends React.Component{
     pubsub.subscribe("OPEN_LOGIN_DIALOG",this.handleOpenDialog);
     pubsub.subscribe("CLOSE_LOGIN_DIALOG",this.handleCloseDialog);
 
+
+
   }
+  handleFirefox(){
+    //kk.style.display='none';
+    const bodyHeight = document.body.clientHeight;
+    const dialogHeight = this.refs.dia.clientHeight;
+    findDOMNode(this.refs.dia).style.position = 'fixed';
+    findDOMNode(this.refs.dia).style.top = `${(bodyHeight - dialogHeight) / 2}px`;
+    findDOMNode(this.refs.dia).style.zIndex = 9;
+    findDOMNode(this.refs.dia).style.background='white';
+    findDOMNode(this.refs.dia).style.left='40%';
+  }
+
+
 
   handleOpenDialog(id,msg){
     console.log("handleOpenDialog");
+    findDOMNode(this.refs.dia).style.display='';
     var dd= findDOMNode(this.refs.dia);
     this.state.msg=msg;
     this.setState({
@@ -43,6 +58,7 @@ class LoginDialog extends React.Component{
   }
 
   handleCloseDialog() {
+    findDOMNode(this.refs.dia).style.display='none';
     this.setState({
       openDialog: false
     });
@@ -63,7 +79,8 @@ class LoginDialog extends React.Component{
 
   componentDidMount(){
     //this.refs.dia.style.top='100px';
-    this.refs.dia;
+   if(navigator.userAgent.indexOf("Firefox")>0)
+      this.handleFirefox();
   }
 
   handleEnter(o,e){

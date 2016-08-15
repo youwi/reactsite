@@ -51,7 +51,10 @@
  // font-size: 20px;
   vertical-align: middle
 }
-
+.listlike:hover{
+  background: #ceefce;
+  color:blue;
+}
 .listlike div {
  // display: inline;
 }

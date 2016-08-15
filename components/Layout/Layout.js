@@ -25,12 +25,12 @@ class Layout extends React.Component {
   }
 //style={{height: '30px', position: 'relative','min-height':'34px'}}
   render() {
-    var hi=window.screen.availHeight > document.body.clientHeight*2?window.screen.availHeight:document.body.clientHeight-25;
+    var hi=window.screen.availHeight > document.body.clientHeight*2?window.screen.availHeight:document.body.clientHeight-72;
     return (
       <div className={s.fixnav} className="mdl-layout mdl-js-layout"   ref="root">
         <div className="mdl-layout__inner-container">
           <Header>
-            <span className="mdl-layout-title  ">App分发</span>
+            <span className="mdl-layout-title  ">应用分发</span>
             <div className="mdl-layout-spacer"></div>
             <Navigation />
           </Header>

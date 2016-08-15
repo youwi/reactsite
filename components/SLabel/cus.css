@@ -2,6 +2,7 @@
 .fix a{
   text-decoration: none;
   cursor:pointer;
+  background:#61f161;
 
 }
 
@@ -21,5 +22,5 @@
   border-radius:3px;
   margin-left: 5px;
   text-decoration: none;
-  background:#61f161;
+  background:rgb(118, 224, 118);
 }

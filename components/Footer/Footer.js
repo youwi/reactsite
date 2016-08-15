@@ -20,6 +20,7 @@ function Footer() {
         <ul className="mdl-mini-footer__link-list">
           <li><Link to="/privacy">Privacy & Terms</Link></li>
           <li><Link to="/about">About</Link></li>
+          <li><Link to="/tree">浏览文件</Link></li>
         </ul>
       </div>
       <div className="mdl-mini-footer__right-section">

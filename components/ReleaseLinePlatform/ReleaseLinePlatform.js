@@ -65,6 +65,10 @@ class ReleaseLinePlatform extends React.Component{
       this.setState({buildlist:this.state.buildlist,active:this.state.active});
     });
     this.activeOne(obj);
+    // obj.platform=obj.platform=='ios'?"android":"ios";
+    // if(obj.sync) return;
+    // obj.sync=true;
+    // this.handelSelectAppVersionPlatform(obj);
   }
 
   activeOne(obj){
@@ -118,8 +122,9 @@ class ReleaseLinePlatform extends React.Component{
                       <ul>
                         {
                           this.state[platformname+"list"].map((v)=>{
+                            var vid= v.appid+v.version+platformname;
                             return (
-                                <li key={v.version+v.appid} className={s.listyle}>
+                                <li key={v.version+v.appid+platformname} className={s.listyle}>
                                 <span className={s.listdate}>
                                   <span style={{color:'blue'}}>{v.version}</span>
                                   <svg aria-hidden="true"   height="16" version="1.1" viewBox="0 0 14 16" width="14">
@@ -128,12 +133,12 @@ class ReleaseLinePlatform extends React.Component{
                                 </span>
 
                                 <div className={s.divmain}>
-                                 
+
                                   <div className={s.platform} >
-                                    <SLabel active={this.state.active[0]}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'dev'})}>dev</SLabel>
-                                    <SLabel active={this.state.active[1]}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'test'})}>test</SLabel>
-                                    <SLabel active={this.state.active[2]}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'slim'})}>slim</SLabel>
-                                    <SLabel active={this.state.active[3]}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'prd'})}>prd</SLabel>
+                                    <SLabel active={this.state.active[0]} ref={vid+'dev'} onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'dev'})}>dev</SLabel>
+                                    <SLabel active={this.state.active[1]} ref={vid+'test'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'test'})}>test</SLabel>
+                                    <SLabel active={this.state.active[2]} ref={vid+'slim'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'slim'})}>slim</SLabel>
+                                    <SLabel active={this.state.active[3]} ref={vid+'prd'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'prd'})}>prd</SLabel>
                                     <BuildList  appversionbuild={this.state.buildlist[v.appid+v.version+platformname]||[]}>
                                     </BuildList>
                                   </div>
