@@ -37,6 +37,11 @@ class UploadForm extends React.Component{
   }
   componentDidMount(){
     this.setState({appversion:this.props.appversion})
+    forjson("http://127.0.0.1:9090/getallapp.rest",{token:'123'},(data)=>{
+      var s=new Array;
+      data.map((t)=>{ s.push(t.appname)  });
+      this.setState({namelist:s||[]});
+    });
   }
 
   handelSelectAppVersionPlatform(obj,e){
@@ -96,12 +101,17 @@ class UploadForm extends React.Component{
 
 
                  >
-                 <FormControl className={s.fix} name="appname" grid={2/8} required={true} label="项目名" type="text"/>
+                 <FormControl className={s.fix} name="appname" grid={2/8} required={true} label="项目名" type="select"
+                              data={this.state.namelist}
+                 />
                  <FormControl className={s.fix} name="version" grid={2/8} required={true} label="版本" type="integer"/>
                  <FormControl className={s.fix} name="build"   grid={2/8} required={true} label="构建号"  type="integer"/>
-                 <FormControl className={s.fix} name="env"     grid={2/8} required={true} label="环境名" type="text"/>
-                 <FormControl className={s.fix} name="platform"     grid={2/8} required={true} label="平台" type="text"/>
-                 <FormControl className={s.fix} name="revision"     grid={2/8} required={true} label="revision" type="integer"/>
+                 <FormControl className={s.fix} name="env"     grid={2/8} required={true} label="环境名"   type="select"
+                              data={["dev", "test",'sim','prod']}/>
+
+                 <FormControl className={s.fix} name="platform"  grid={2/8}  required={true} label="平台" type="select"
+                              data={["android", "ios"]}                    />
+                 <FormControl className={s.fix} name="revision"     grid={2/8} required={true} label="revision" type="text"/>
                  <FormControl name="file"
                               label="上传文件"
                               type="upload"
@@ -137,4 +147,5 @@ export default UploadForm;
  //  xhr.send(data);
 
  }
+ <FormControl className={s.fix} name="channel"    grid={2/8}    required={false} label="渠道" type="text"/>
  */

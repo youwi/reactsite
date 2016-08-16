@@ -57,9 +57,9 @@ class AppMainPanel extends React.Component {
     // // });
   };
 
-  handelSelectApp(appid,e){
+  handelSelectApp(appid,name,e){
 
-      this.setState({selectapp:appid});
+      this.setState({selectapp:appid,selectname:name});
   }
 // style={{visibility:this.state.hidden? 'hidden':'visible'}}
 
@@ -67,7 +67,7 @@ class AppMainPanel extends React.Component {
     if(this.state.selectapp){
       //history.
       return (
-        <ReleaseLinePlatform appid={this.state.selectapp}></ReleaseLinePlatform>
+        <ReleaseLinePlatform appid={this.state.selectapp} appname={this.state.selectname}></ReleaseLinePlatform>
       )
     }else
     return (
@@ -79,7 +79,7 @@ class AppMainPanel extends React.Component {
             <li className={s.postli} key={app.id} ref={"domappid"+app.id}>
               <div className={s.fade}>
               <Card   shadow={2} style={{width: '100%', height: '150px', margin: '10px',float: "left"}}
-                    onClick={this.handelSelectApp.bind(this,app.id)}>
+                    onClick={this.handelSelectApp.bind(this,app.id,app.appname)}>
               <CardTitle expand style={{color: '#fff', background: 'url('+app.appicon+') center no-repeat #46B6AC'}}>{app.version}</CardTitle>
               <CardText>{app.appname}</CardText>
             </Card>

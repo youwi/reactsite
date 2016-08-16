@@ -13,6 +13,8 @@ import Header from './Header';
 import Navigation from './Navigation';
 import Footer from '../Footer';
 import s from './Layout.css';
+import {IconButton } from "react-mdl";
+import pubsub from "pubsub-js"
 
 class Layout extends React.Component {
 
@@ -30,6 +32,7 @@ class Layout extends React.Component {
       <div className={s.fixnav} className="mdl-layout mdl-js-layout"   ref="root">
         <div className="mdl-layout__inner-container">
           <Header>
+            <IconButton name="home" onClick={()=>{pubsub.publish("APP_MAIN")}}></IconButton>
             <span className="mdl-layout-title  ">应用分发</span>
             <div className="mdl-layout-spacer"></div>
             <Navigation />

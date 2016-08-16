@@ -27,7 +27,7 @@ class ReleaseLinePlatform extends React.Component{
     this.state.ioslist=[];
     this.state.androidlist=[];
     this.state.env="dev";
-    this.state.active=[{a:"false"},{a:"false"},{a:"false"},{a:"false"}];
+    this.state.active=[ ];
     //   this.state.buildlist={}
     this.state.appversion=this.props.appversion||[];
     this.state.clickcount=0;
@@ -73,7 +73,9 @@ class ReleaseLinePlatform extends React.Component{
 
   activeOne(obj){
     ['dev','test','slim','prd'].map((item,i)=>{
-      obj.env==item?this.state.active[i].a="true":this.state.active[i].a="false";
+      var vid= obj.appid+obj.version+item;
+      if(this.state.active[vid]==null) this.state.active[vid]=[false,false,false,false];
+      obj.env==item?this.state.active[vid][i]=true:this.state.active[vid][i]=false;
     })
   }
 
@@ -83,6 +85,7 @@ class ReleaseLinePlatform extends React.Component{
     var env=["dev","test","slim","prd"];
     var platform=["ios","android"];
     forjson("http://127.0.0.1:9090/getapp.rest",{appid:this.props.appid},(data)=> {
+     // this.state.appname=data[0].appname;
       data.sort((a, b)=> {
         return a.version < b.version;
       });
@@ -94,7 +97,7 @@ class ReleaseLinePlatform extends React.Component{
         else(item.platform=="android")
           this.state.androidlist.push(item);
       }
-      this.setState({env:env[tabId],activeTab: tabId,appversion:data,androidlist:  this.state.androidlist,ioslist:  this.state.ioslist});
+      this.setState({ env:env[tabId],activeTab: tabId,appversion:data,androidlist:  this.state.androidlist,ioslist:  this.state.ioslist});
     });
   }
 
@@ -106,7 +109,7 @@ class ReleaseLinePlatform extends React.Component{
     return (
 
       <div>
-        <IconButton name="keyboard_arrow_left" style={{    position: 'fixed',top: '50%'}} onClick={()=>{pubsub.publish("APP_MAIN")}}/>
+        <Button style={{left: '48%',marginTop: '20px', textTransform: 'none'}}  ripple>{this.props.appname}</Button>
 
         <div style={{display: 'table', width: '100%'}}>
           <ul>
@@ -117,14 +120,22 @@ class ReleaseLinePlatform extends React.Component{
                     <Card className={s.bigcard}  key={platformname}
                           shadow={1}  >
                       <CardActions border>
-                        <Button colored>{platformname}</Button>
+                        {
+                          platformname=='android'?
+                          <div><IconButton name={platformname}></IconButton>Android</div>
+                            :
+                          <div><IconButton name="phone_iphone"></IconButton>iOS</div>
+                      }
+
                       </CardActions>
                       <ul>
                         {
-                          this.state[platformname+"list"].map((v)=>{
+                          this.state[platformname+"list"].map((v,i)=>{
                             var vid= v.appid+v.version+platformname;
+                            if(this.state.active[vid]==null) this.state.active[vid]=[false,false,false,false];
+                            if(v.platform==platformname)
                             return (
-                                <li key={v.version+v.appid+platformname} className={s.listyle}>
+                                <li key={v.version+v.appid+platformname+i} className={s.listyle}>
                                 <span className={s.listdate}>
                                   <span style={{color:'blue'}}>{v.version}</span>
                                   <svg aria-hidden="true"   height="16" version="1.1" viewBox="0 0 14 16" width="14">
@@ -135,10 +146,13 @@ class ReleaseLinePlatform extends React.Component{
                                 <div className={s.divmain}>
 
                                   <div className={s.platform} >
-                                    <SLabel active={this.state.active[0]} ref={vid+'dev'} onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'dev'})}>dev</SLabel>
-                                    <SLabel active={this.state.active[1]} ref={vid+'test'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'test'})}>test</SLabel>
-                                    <SLabel active={this.state.active[2]} ref={vid+'slim'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'slim'})}>slim</SLabel>
-                                    <SLabel active={this.state.active[3]} ref={vid+'prd'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'prd'})}>prd</SLabel>
+                                    <SLabel active={this.state.active[vid][1]} ref={vid+'test'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'test'})}>Test</SLabel>
+                                    <SLabel active={this.state.active[vid][2]} ref={vid+'slim'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'slim'})}>Sim</SLabel>
+                                    <SLabel active={this.state.active[vid][3]} ref={vid+'prd'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'prd'})}>Prod</SLabel>
+                                    {
+                                      platformname=='ios'?null:
+                                        <SLabel active={this.state.active[vid][4]} ref={vid+'prd-channels'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname+"-channels",env:'prd'})}>Channels</SLabel>
+                                    }
                                     <BuildList  appversionbuild={this.state.buildlist[v.appid+v.version+platformname]||[]}>
                                     </BuildList>
                                   </div>
@@ -159,11 +173,8 @@ class ReleaseLinePlatform extends React.Component{
                       </CardMenu>
                     </Card>
                   )
-
-
                 })
               }
-
 
             </li>
             <li  className={s.listyle}>
@@ -175,8 +186,6 @@ class ReleaseLinePlatform extends React.Component{
         </div>
 
         <br/>
-        <IconButton name="keyboard_arrow_right" style={{    position: 'fixed',top: '50%' ,right:'10%'}} onClick={()=>{pubsub.publish("APP_RELEASE_LINE_VERSION"),this.setState({gotoVersion:true})}}/>
-
 
       </div>
     );
@@ -185,5 +194,11 @@ class ReleaseLinePlatform extends React.Component{
 
 export default ReleaseLinePlatform;
 /*
+ <IconButton name="keyboard_arrow_right" style={{    position: 'fixed',top: '50%' ,right:'10%'}} onClick={()=>{pubsub.publish("APP_RELEASE_LINE_VERSION"),this.setState({gotoVersion:true})}}/>
+
+
+ // <IconButton name="keyboard_arrow_left" style={{    position: 'fixed',top: '50%'}} onClick={()=>{pubsub.publish("APP_MAIN")}}/>
+
+ <SLabel active={this.state.active[vid][0]} ref={vid+'dev'} onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'dev'})}>Dev</SLabel>
 
  */

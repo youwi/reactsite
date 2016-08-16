@@ -21,7 +21,7 @@ class SLabel extends React.Component {
   constructor(props){
     super();
     this.state={};
-    this.state.clicked=props.active.a||false;
+    this.state.clicked=props.active||false;
   }
   componentDidMount(){
     // if(this.props.active.a=="true")
@@ -44,7 +44,7 @@ class SLabel extends React.Component {
 
   render() {
     return <span ref="mm"
-    className={this.props.active.a=="true"?s.bk:s.fix}
+    className={this.props.active==true?s.bk:s.fix}
       onClick={this.handleClick.bind(this)}
     >{this.props.children}</span>
   }

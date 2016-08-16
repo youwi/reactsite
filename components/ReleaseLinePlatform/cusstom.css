@@ -41,7 +41,8 @@
   float:left
 }
 .listyle{
-  list-style-type:none
+  list-style-type:none;
+  margin-left: 4%;
 }
 .platform  div a :hover{
   color: blue;
