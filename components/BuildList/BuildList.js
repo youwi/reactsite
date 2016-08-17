@@ -91,11 +91,11 @@ class BuildList extends React.Component{
                         {
                           //https://192.168.10.193/installIPA.plist
                           v.platform=='ios'?
-                            <Qrcodediv url={"itms-services://?action=download-manifest&url="+"https://"+env.ip+"/file/filelink?filelink="+v.filelink}></Qrcodediv>
+                            <Qrcodediv url={"http://"+env.ip+"/m?appid="+v.appid+"&version="+v.version+"&platform="+v.platform+"&env="+v.env+"&build="+v.build}></Qrcodediv>
                             :
                             <Qrcodediv url={"http://"+env.ip+"/file/filelink?filelink="+v.filelink}></Qrcodediv>
                         }
-       
+
 
                       </li>
                     )
@@ -112,6 +112,8 @@ class BuildList extends React.Component{
 
 export default BuildList;
 /*
+ <Qrcodediv url={"itms-services://?action=download-manifest&url="+"https://"+env.httpsip+"/file/filelink?filelink="+v.filelink+".plist"}></Qrcodediv>
+
  //<QrcodeSpan></QrcodeSpan>
  <Icon name="file_download" className={s.svgcss}></Icon>
  */

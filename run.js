@@ -127,10 +127,10 @@ tasks.set('prd', () => {
 });
 
 function  changeDev() {
-  fs.writeFileSync('./env.json', JSON.stringify({ip:'127.0.0.1:9090'}), 'utf8');
+  fs.writeFileSync('./env.json', JSON.stringify({ip:'127.0.0.1:9090',httpsip:'127.0.0.1:443'}), 'utf8');
 }
 function  changePrd() {
-  fs.writeFileSync('./env.json', JSON.stringify({ip:'10.0.18.47:8101'}), 'utf8');
+  fs.writeFileSync('./env.json', JSON.stringify({ip:'10.0.18.47:8101',httpsip:'10.0.18.47:443'}), 'utf8');
 }
 //
 // Build website and launch it in a browser for testing (default)
