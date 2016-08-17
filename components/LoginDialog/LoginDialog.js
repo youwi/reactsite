@@ -70,6 +70,7 @@ class LoginDialog extends React.Component{
     console.log(this.state.passwd);
     forjson("http://127.0.0.1:9090/login.rest",{username:this.state.username,passwd:this.state.passwd},function (data) {
       pubsub.publish("LOGIN_SUCCESS",data);
+      pubsub.publish("APP_MAIN_RELOAD");
     });
     // // forjson("http://127.0.0.1:3000/3333",null,function(data){
     // //     tmp=data;
