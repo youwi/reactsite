@@ -38,7 +38,7 @@ class Layout extends React.Component {
             <Navigation />
           </Header>
           <main className="mdl-layout__content">
-            <div className={s.content} {...this.props}  style={{overflow: 'scroll',height:hi+'px'}}/>
+            <div className={s.content} {...this.props}  style={{overflow: 'auto',height:hi+'px'}}/>
 
             <Footer />
           </main>

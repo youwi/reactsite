@@ -17,6 +17,7 @@ import s from "./cusstom.css";
 import BuildList from "../BuildList/BuildList";
 import SLabel from "../SLabel";
 import ReleaseLineVersion from "../ReleaseLineVersion"
+import {Message} from "rctui"
 
 class ReleaseLinePlatform extends React.Component{
 
@@ -100,10 +101,13 @@ class ReleaseLinePlatform extends React.Component{
       this.setState({ env:env[tabId],activeTab: tabId,appversion:data,androidlist:  this.state.androidlist,ioslist:  this.state.ioslist});
     });
   }
-  updateChannel(){
-    forjson("http://127.0.0.1:9090/updatechannel.rest",{appid:this.props.appid,appname:this.props.appname,version:1},(data)=>{
-      console.log(data);
-    })
+  updateChannel(e){
+  //  console.log(e)
+    if(e.altlKey)
+      forjson("http://127.0.0.1:9090/updatechannel.rest",{appid:this.props.appid,appname:this.props.appname,version:1},(data)=>{
+
+        Message.show("更新渠道包返回结果:"+data);
+      })
   }
 
 
@@ -121,8 +125,9 @@ class ReleaseLinePlatform extends React.Component{
             <li className={s.listyle}>
               {
                 ["android","ios"].map((platformname)=>{
+                  var hi=window.screen.availHeight > document.body.clientHeight*2?window.screen.availHeight:document.body.clientHeight-172;
                   return (
-                    <Card className={s.bigcard}  key={platformname}
+                    <Card className={s.bigcard}  key={platformname}  style={{height:hi,overflowY: 'scroll'}}
                           shadow={1}  >
                       <CardActions border>
                         {
