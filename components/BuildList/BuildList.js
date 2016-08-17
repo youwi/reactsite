@@ -88,8 +88,14 @@ class BuildList extends React.Component{
                             </IconButton>
                           </Tooltip>
 
-
-                          <Qrcodediv url={"http://"+env.ip+"/file/filelink?filelink="+v.filelink}></Qrcodediv>
+                        {
+                          //https://192.168.10.193/installIPA.plist
+                          v.platform=='ios'?
+                            <Qrcodediv url={"itms-services://?action=download-manifest&url="+"https://"+env.ip+"/file/filelink?filelink="+v.filelink}></Qrcodediv>
+                            :
+                            <Qrcodediv url={"http://"+env.ip+"/file/filelink?filelink="+v.filelink}></Qrcodediv>
+                        }
+       
 
                       </li>
                     )
