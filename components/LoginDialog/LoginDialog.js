@@ -21,6 +21,7 @@ class LoginDialog extends React.Component{
     super(props);
     this.state = {};
     this.state.username="";
+    this.state.passwd="";
     this.state.openDialog=this.props.openDialog||false;
     console.log("    this.state.openDialog:"+    this.state.openDialog);
     this.handleOpenDialog = this.handleOpenDialog.bind(this);

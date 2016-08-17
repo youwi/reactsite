@@ -58,8 +58,12 @@ class AppMainPanel extends React.Component {
   };
 
   handelSelectApp(appid,name,e){
+      //提前判断下.
+    forjson("http://127.0.0.1:9090/userinfo.rest",null,(data)=> {
+      if(data.username)
+        this.setState({selectapp:appid,selectname:name});
+    });
 
-      this.setState({selectapp:appid,selectname:name});
   }
 // style={{visibility:this.state.hidden? 'hidden':'visible'}}
 
@@ -80,7 +84,7 @@ class AppMainPanel extends React.Component {
               <div className={s.fade}>
               <Card   shadow={2} style={{width: '100%', height: '150px', margin: '10px',float: "left"}}
                     onClick={this.handelSelectApp.bind(this,app.id,app.appname)}>
-              <CardTitle expand style={{color: '#fff', background: 'url('+app.appicon+') center no-repeat #46B6AC'}}>{app.version}</CardTitle>
+              <CardTitle expand style={{color: '#fff', background: 'url('+app.appicon+') center no-repeat #46B6AC',backgroundSize: '100%'}}>{app.version}</CardTitle>
               <CardText>{app.appname}</CardText>
             </Card>
                 </div>

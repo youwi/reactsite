@@ -13,6 +13,7 @@ import Link from '../Link';
 import pubsub from "pubsub-js";
 import {Snackbar,Icon,DataTable,TableHeader,IconButton,Button,Dialog,DialogActions,DialogContent,DialogTitle,Textfield } from "react-mdl";
 import { forjson  } from "../AjaxJson";
+import {Message} from "rctui";
 
 import BuildList from "../BuildList/BuildList"
 
@@ -26,6 +27,7 @@ class GlobalToast extends React.Component{
       this.state.isopen=false;
       pubsub.subscribe("TOAST_INFO",(type,data)=>{
         this.setState({ isopen:true,info:data});
+       // Message.show("error message.", "error");
       });
   }
 

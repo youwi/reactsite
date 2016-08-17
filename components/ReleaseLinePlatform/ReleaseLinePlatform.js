@@ -100,6 +100,11 @@ class ReleaseLinePlatform extends React.Component{
       this.setState({ env:env[tabId],activeTab: tabId,appversion:data,androidlist:  this.state.androidlist,ioslist:  this.state.ioslist});
     });
   }
+  updateChannel(){
+    forjson("http://127.0.0.1:9090/updatechannel.rest",{appid:this.props.appid,appname:this.props.appname,version:1},(data)=>{
+      console.log(data);
+    })
+  }
 
 
 
@@ -109,7 +114,7 @@ class ReleaseLinePlatform extends React.Component{
     return (
 
       <div>
-        <Button style={{left: '48%',marginTop: '20px', textTransform: 'none'}}  ripple>{this.props.appname}</Button>
+        <Button style={{left: '48%',marginTop: '20px', textTransform: 'none'}} onClick={this.updateChannel.bind(this)} ripple>{this.props.appname}</Button>
 
         <div style={{display: 'table', width: '100%'}}>
           <ul>
@@ -132,7 +137,7 @@ class ReleaseLinePlatform extends React.Component{
                         {
                           this.state[platformname+"list"].map((v,i)=>{
                             var vid= v.appid+v.version+platformname;
-                            if(this.state.active[vid]==null) this.state.active[vid]=[false,false,false,false];
+                            if(this.state.active[vid]==null) this.state.active[vid]=[false,false,false,false,false];
                             if(v.platform==platformname)
                             return (
                                 <li key={v.version+v.appid+platformname+i} className={s.listyle}>
@@ -146,12 +151,16 @@ class ReleaseLinePlatform extends React.Component{
                                 <div className={s.divmain}>
 
                                   <div className={s.platform} >
-                                    <SLabel active={this.state.active[vid][1]} ref={vid+'test'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'test'})}>Test</SLabel>
-                                    <SLabel active={this.state.active[vid][2]} ref={vid+'slim'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'slim'})}>Sim</SLabel>
-                                    <SLabel active={this.state.active[vid][3]} ref={vid+'prd'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'prd'})}>Prod</SLabel>
+                                        <SLabel active={this.state.active[vid][1]} ref={vid+'test'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'test'})}>Test</SLabel>
+                                        <SLabel active={this.state.active[vid][2]} ref={vid+'slim'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'slim'})}>Sim</SLabel>
+                                        <SLabel active={this.state.active[vid][3]} ref={vid+'prd'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'prd'})}>Prod</SLabel>
+                                      {
+                                      platformname=='ios'?null:
+                                        <SLabel active={this.state.active[vid][4]} ref={vid+'prd-promotion'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'prd-promotion'})}>Promotion</SLabel>
+                                    }
                                     {
                                       platformname=='ios'?null:
-                                        <SLabel active={this.state.active[vid][4]} ref={vid+'prd-channels'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname+"-channels",env:'prd'})}>Channels</SLabel>
+                                        <SLabel active={this.state.active[vid][5]} ref={vid+'prd-market'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'prd-market'})}>Market</SLabel>
                                     }
                                     <BuildList  appversionbuild={this.state.buildlist[v.appid+v.version+platformname]||[]}>
                                     </BuildList>

@@ -18,6 +18,8 @@ import Qrcodediv from "../Qrcodediv"
 import {TweenOneGroup} from 'rc-tween-one';
 import QueueAnim from 'rc-queue-anim';
 import env from "../../env.json"
+import Chipbroad from "clipboard"
+import {Message } from "rctui";
 
 class BuildList extends React.Component{
 
@@ -26,6 +28,11 @@ class BuildList extends React.Component{
     this.state = {};
     this.state.count=0;
 
+  }
+  copyLink(link){
+    //Chipbroad.write(link);
+    //<button class="btn" data-clipboard-action="copy" data-clipboard-target="div">Copy</button>
+    Message.show("已经复制到剪切板");
   }
 
   handelDownload(filelink,e){
@@ -39,6 +46,9 @@ class BuildList extends React.Component{
     return false;
   }
 
+  componentDidMount(){
+    new Chipbroad(".forCopyLink");
+  }
 
   render() {
 
@@ -59,10 +69,14 @@ class BuildList extends React.Component{
                   this.props.appversionbuild.map((v)=>{
                     return (
                       <li className={s.listlike} key={v.build+v.appid+v.version+v.platform+Math.random()}>
-                        <span>build:{v.build}</span>
+                        <span>{
+                          v.env.indexOf("-M")>-1||v.env.indexOf("-P")>-1?v.env:"构建号:"
+                        }{v.build}</span>
                         <Tooltip label="复制连接" large position="top">
                           <IconButton
-                            className={s.myfontsize}
+                            data-clipboard-text={"http://"+env.ip+"/file/filelink?filelink="+v.filelink}
+                            className={s.myfontsize+" forCopyLink"}
+                            onClick={this.copyLink.bind(this,"http://"+env.ip+"/file/filelink?filelink="+v.filelink)}
                             name="content_copy">
                           </IconButton>
                         </Tooltip>
@@ -76,7 +90,7 @@ class BuildList extends React.Component{
 
 
                           <Qrcodediv url={"http://"+env.ip+"/file/filelink?filelink="+v.filelink}></Qrcodediv>
-                     
+
                       </li>
                     )
                   })
