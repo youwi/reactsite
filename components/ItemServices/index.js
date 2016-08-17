@@ -81,7 +81,7 @@ class ItemServices extends React.Component {
                     //<Qrcodediv url={
                     this.state.appid==null?"参数错误"
                       :<a href={"itms-services://?action=download-manifest&url=https://"+env.httpsip+"/file/filelink?filelink="+this.state.filelink+".plist"} >
-                      <Button raised ripple>点击安装</Button>
+                        <Button raised ripple>点击安装</Button>
                       </a>
                   }
               </center>
@@ -91,7 +91,7 @@ class ItemServices extends React.Component {
                 </Cell>
           </Grid>
       </div>
-    );
+    )
   }
 }
 

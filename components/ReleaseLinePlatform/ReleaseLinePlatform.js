@@ -33,9 +33,62 @@ class ReleaseLinePlatform extends React.Component{
     this.state.appversion=this.props.appversion||[];
     this.state.clickcount=0;
     this.activeOne.bind(this);
+    this.sortutil.bind(this);
   }
   componentDidMount(){
     this.envTabChange(0);
+  }
+
+  /**
+   * 双重排序工具
+   * @param data
+     */
+  sortutil(data){
+    data.sort((a,b)=> {
+      if (a.version != null && b.version != null) {
+        try{
+          return new Number(a.version) -new Number(b.version)
+        } catch(e){
+          return a.version > b.version
+        }
+      }
+      if (a.build != null && b.build != null) {
+        try{
+          return new Number(a.build) -new Number(b.build)
+        } catch(e){
+          return a.build > b.build
+        }
+      }
+    })
+    }
+
+  /**
+   * 把字符串延长,去杂
+   *
+   * @param src
+     */
+  fill(src){
+    var it=8;
+    src=src+"";
+    var ia=src.indexOf(".");
+    src=src.replace(/\./g,"");
+    src=src.replace("-","");
+    var ib=src.length;
+
+    for(var i=0;i<it-(ib-ia);i++){
+      src=src+"0";
+    }
+    //src=src.substring(0,5);
+    return 0+src;
+  }
+
+  fill8(src){
+    src=src+"";
+    var la=src.length;
+    for(var i=0;i<3-la;i++){
+      src='0'+src;
+    }
+    return src;
   }
 
   handelSelectAppVersionPlatform(obj,e){
@@ -44,7 +97,7 @@ class ReleaseLinePlatform extends React.Component{
       this.state.clickcount++;
       var cid=obj.appid+obj.version+obj.platform;
       data.sort((a,b)=>{
-        return a.build<b.build;
+        return b.build-a.build
       });
       if(this.state.buildlist[cid] ==null )
         this.state.buildlist[cid]={};
@@ -73,9 +126,9 @@ class ReleaseLinePlatform extends React.Component{
   }
 
   activeOne(obj){
-    ['dev','test','slim','prd'].map((item,i)=>{
-      var vid= obj.appid+obj.version+item;
-      if(this.state.active[vid]==null) this.state.active[vid]=[false,false,false,false];
+    ['dev','test','slim','prd','prd-promotion','prd-market'].map((item,i)=>{
+      var vid= obj.appid+obj.version+obj.platform;
+      if(this.state.active[vid]==null) this.state.active[vid]=[false,false,false,false,false,false];
       obj.env==item?this.state.active[vid][i]=true:this.state.active[vid][i]=false;
     })
   }
@@ -87,8 +140,24 @@ class ReleaseLinePlatform extends React.Component{
     var platform=["ios","android"];
     forjson("http://127.0.0.1:9090/getapp.rest",{appid:this.props.appid},(data)=> {
      // this.state.appname=data[0].appname;
-      data.sort((a, b)=> {
-        return a.version < b.version;
+     data= data.sort((a, b)=> {
+       var pa=a.version.split(".");
+       var pb=b.version.split(".");
+       var ka="";
+       var kb="";
+       var la=pa.length;
+       var lb=pb.length;
+       for(var i=0;i<5-la;i++){
+         pa.push(0);
+       }
+       for(var i=0;i<5-lb;i++){
+         pb.push(0);
+       }
+       for(var i=0;i<5;i++){
+         ka=ka+this.fill8(pa[i]);
+         kb=kb+this.fill8(pb[i]);
+       }
+       return new Number(kb)-new Number(ka);
       });
       this.state.ioslist=[];
       this.state.androidlist=[];
@@ -143,7 +212,7 @@ class ReleaseLinePlatform extends React.Component{
                         {
                           this.state[platformname+"list"].map((v,i)=>{
                             var vid= v.appid+v.version+platformname;
-                            if(this.state.active[vid]==null) this.state.active[vid]=[false,false,false,false,false];
+                            if(this.state.active[vid]==null) this.state.active[vid]=[false,false,false,false,false,false];
                             if(v.platform==platformname)
                             return (
                                 <li key={v.version+v.appid+platformname+i} className={s.listyle}>
