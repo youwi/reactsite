@@ -127,9 +127,31 @@ tasks.set('prd', () => {
 });
 
 function  changeDev() {
-  fs.writeFileSync('./env.json', JSON.stringify({ip:'127.0.0.1:9090',httpsip:'127.0.0.1:443'}), 'utf8');
+  var os = require('os');
+  var IPv4,hostName;
+  hostName=os.hostname();
+  for(var i=0;i<os.networkInterfaces().en0.length;i++){
+    if(os.networkInterfaces().en0[i].family=='IPv4'){
+      IPv4=os.networkInterfaces().en0[i].address;
+    }
+  }
+  console.log('----------local IP: '+IPv4);
+  console.log('----------local host: '+hostName);
+ // 在ubuntu server上获取本地IP地址
+ //  var os = require('os');
+ //  var IPv4,hostName;
+ //  hostName=os.hostname();
+ //  for(var i=0;i<os.networkInterfaces().eth0.length;i++){
+ //    if(os.networkInterfaces().eth0[i].family=='IPv4'){
+ //      IPv4=os.networkInterfaces().eth0[i].address;
+ //    }
+ //  }
+
+  fs.writeFileSync('./env.json', JSON.stringify({ip: IPv4+':9090',httpsip:IPv4+':443'}), 'utf8');
 }
 function  changePrd() {
+
+
   fs.writeFileSync('./env.json', JSON.stringify({ip:'10.0.18.47:8101',httpsip:'10.0.18.47:443'}), 'utf8');
 }
 //

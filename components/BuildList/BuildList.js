@@ -40,7 +40,7 @@ class BuildList extends React.Component{
     e.stopPropagation();
 
     window.open("http://"+env.ip+"/file/filelink?filename="+filelink);
-    // forjson("http://127.0.0.1:9090/file/filelink?filelink="+filelink,null,(data)=>{
+    // forjson("http://127.0.0.1:9090/file/filelink?filename="+filelink,null,(data)=>{
     //
     // });
     return false;
@@ -74,9 +74,9 @@ class BuildList extends React.Component{
                         }{v.build}</span>
                         <Tooltip label="复制连接" large position="top">
                           <IconButton
-                            data-clipboard-text={"http://"+env.ip+"/file/filelink?filelink="+v.filelink}
+                            data-clipboard-text={"http://"+env.ip+"/file/filelink?filename="+v.filelink}
                             className={s.myfontsize+" forCopyLink"}
-                            onClick={this.copyLink.bind(this,"http://"+env.ip+"/file/filelink?filelink="+v.filelink)}
+                            onClick={this.copyLink.bind(this,"http://"+env.ip+"/file/filelink?filename="+v.filelink)}
                             name="content_copy">
                           </IconButton>
                         </Tooltip>
@@ -84,17 +84,19 @@ class BuildList extends React.Component{
                             <IconButton
                               name="file_download"
                               onClick={this.handelDownload.bind(this,v.filelink)}
-                              href={"http://"+env.ip+"/file/filelink?filelink="+v.filelink}>
+                              href={"http://"+env.ip+"/file/filelink?filename="+v.filelink}>
                             </IconButton>
                           </Tooltip>
 
                         {
                           //https://192.168.10.193/installIPA.plist
                           v.platform=='ios'?
-                            <Qrcodediv url={"http://"+env.ip+"/m?appid="+v.appid+"&version="+v.version+"&platform="+v.platform+"&env="+v.env+"&build="+v.build}></Qrcodediv>
-                            :
-                            <Qrcodediv url={"http://"+env.ip+"/file/filelink?filelink="+v.filelink}></Qrcodediv>
+                            <Qrcodediv url={"http://"+env.ip+"/file/itemservices?filename="+v.filelink}></Qrcodediv>
+                            :<Qrcodediv url={"http://"+env.ip+"/file/filelink?filename="+v.filelink}></Qrcodediv>
                         }
+                        <Qrcodediv url={"http://"+window.location.host+"/m?appid="+v.appid+"&version="+v.version+"&platform="+v.platform+"&env="+v.env+"&build="+v.build}></Qrcodediv>
+                        <Qrcodediv url={"itms-services://?action=download-manifest&url="+"https://"+env.httpsip+"/file/filelink?filename="+v.filelink+".plist"}></Qrcodediv>
+
 
 
                       </li>
@@ -112,7 +114,10 @@ class BuildList extends React.Component{
 
 export default BuildList;
 /*
- <Qrcodediv url={"itms-services://?action=download-manifest&url="+"https://"+env.httpsip+"/file/filelink?filelink="+v.filelink+".plist"}></Qrcodediv>
+  //生成一个临时界面
+ <Qrcodediv url={"http://"+env.ip+"/m?appid="+v.appid+"&version="+v.version+"&platform="+v.platform+"&env="+v.env+"&build="+v.build}></Qrcodediv>
+
+ <Qrcodediv url={"itms-services://?action=download-manifest&url="+"https://"+env.httpsip+"/file/filelink?filename="+v.filelink+".plist"}></Qrcodediv>
 
  //<QrcodeSpan></QrcodeSpan>
  <Icon name="file_download" className={s.svgcss}></Icon>
