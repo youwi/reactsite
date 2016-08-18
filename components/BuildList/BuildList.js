@@ -91,7 +91,7 @@ class BuildList extends React.Component{
                         {
                           //https://192.168.10.193/installIPA.plist
                           v.platform=='ios'?
-                            <Qrcodediv url={"http://"+env.ip+"/file/itemservices?filename="+v.filelink}></Qrcodediv>
+                            <Qrcodediv url={"https://"+window.location.host+"/file/itemservices?filename="+v.filelink}></Qrcodediv>
                             :<Qrcodediv url={"http://"+env.ip+"/file/filelink?filename="+v.filelink}></Qrcodediv>
                         }
                         <Qrcodediv url={"http://"+window.location.host+"/m?appid="+v.appid+"&version="+v.version+"&platform="+v.platform+"&env="+v.env+"&build="+v.build}></Qrcodediv>
