@@ -1,5 +1,8 @@
 
-
+.qrdiv{
+  float:right;
+  padding: 4px;
+}
 
 .qrdiv:hover{
  // background-color: rgba(158,158,158,.2);

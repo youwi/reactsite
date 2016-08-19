@@ -82,7 +82,7 @@ class AppMainPanel extends React.Component {
 
             <li className={s.postli} key={app.id} ref={"domappid"+app.id}>
               <div className={s.fade}>
-              <Card   shadow={2} style={{width: '100%', height: '150px', margin: '10px',float: "left"}}
+              <Card   shadow={2} style={{width: '100%', height: '250px', margin: '10px',float: "left"}}
                     onClick={this.handelSelectApp.bind(this,app.id,app.appname)}>
               <CardTitle expand style={{color: '#fff', background: 'url('+app.appicon+') center no-repeat #46B6AC',backgroundSize: '100%'}}>{app.version}</CardTitle>
               <CardText>{app.appname}</CardText>
