@@ -18,8 +18,21 @@ import pubsub from "pubsub-js"
 
 class Layout extends React.Component {
 
+  constructor(props){
+    super();
+    this.state={};
+    this.state.bodyhi=window.screen.availHeight > document.body.clientHeight*2?window.screen.availHeight:document.body.clientHeight-72;
+
+  }
+
   componentDidMount() {
+    this.state={};
     window.componentHandler.upgradeElement(this.refs.root);
+    window.onresize=()=> {
+      this.state.bodyhi=window.screen.availHeight > document.body.clientHeight*2?window.screen.availHeight:document.body.clientHeight-72;
+      this.setState({bodyhi:this.state.bodyhi});
+     
+    };
   }
 
   componentWillUnmount() {
@@ -38,7 +51,7 @@ class Layout extends React.Component {
             <Navigation />
           </Header>
           <main className="mdl-layout__content">
-            <div className={s.content} {...this.props}  style={{overflow: 'auto',height:hi+'px'}}/>
+            <div className={s.content} {...this.props}  style={{overflow: 'auto',height:this.state.bodyhi+'px'}}/>
 
             <Footer />
           </main>

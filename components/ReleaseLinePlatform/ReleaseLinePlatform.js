@@ -18,6 +18,7 @@ import BuildList from "../BuildList/BuildList";
 import SLabel from "../SLabel";
 import ReleaseLineVersion from "../ReleaseLineVersion"
 import {Message} from "rctui"
+import Qrcodediv from "../Qrcodediv"
 
 class ReleaseLinePlatform extends React.Component{
 
@@ -97,7 +98,8 @@ class ReleaseLinePlatform extends React.Component{
       this.state.clickcount++;
       var cid=obj.appid+obj.version+obj.platform;
       data.sort((a,b)=>{
-        return b.build-a.build
+        return new Date(b.createat)-new Date(a.createat)
+       // return b.build-a.build
       });
       if(this.state.buildlist[cid] ==null )
         this.state.buildlist[cid]={};
@@ -252,8 +254,13 @@ class ReleaseLinePlatform extends React.Component{
                       </CardText>
 
 
-                      <CardMenu style={{color: '#fff'}}>
-                        <IconButton name="share" />
+                      <CardMenu >
+                        {
+                          platformname=='ios'?
+                            <div > <span> 证书</span>   <Qrcodediv url={"http://appds.wkzf/ca.crt"} style={{float:'right'}}></Qrcodediv></div>
+                            :null
+                        }
+
                       </CardMenu>
                     </Card>
                   )

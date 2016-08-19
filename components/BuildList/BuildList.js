@@ -88,30 +88,32 @@ class BuildList extends React.Component{
                           {
                             console.log("https://"+window.location.host+"/file/itemservices?filename="+v.filelink)
                           }
+                        <span>
+                            {
+                              //https://192.168.10.193/installIPA.plist
 
-                        {
-                          //https://192.168.10.193/installIPA.plist
+                              v.platform=='ios'?
+                                <Qrcodediv url={"https://"+window.location.host+"/file/itemservices?filename="+v.filelink} style={{float:'right'}}></Qrcodediv>
+                                :<Qrcodediv url={"http://"+env.ip+"/file/filelink?filename="+v.filelink} style={{float:'right'}}></Qrcodediv>
+                            }
+                            <Tooltip label="复制连接" large position="top" style={{float:'right'}}>
+                              <IconButton
+                                data-clipboard-text={"http://"+env.ip+"/file/filelink?filename="+v.filelink}
+                                className={s.myfontsize+" forCopyLink"}
+                                onClick={this.copyLink.bind(this,"http://"+env.ip+"/file/filelink?filename="+v.filelink)}
+                                name="content_copy">
+                              </IconButton>
+                            </Tooltip>
+                            <Tooltip label="点击下载(右键可以复制链接)" large position="top" style={{float:'right'}}>
+                              <IconButton
+                                name="file_download"
+                                onClick={this.handelDownload.bind(this,v.filelink)}
+                                href={"http://"+env.ip+"/file/filelink?filename="+v.filelink}>
+                              </IconButton>
+                            </Tooltip>
+                              </span>
+                            <span>Revision:{v.revision} </span>
 
-                          v.platform=='ios'?
-                            <Qrcodediv url={"https://"+window.location.host+"/file/itemservices?filename="+v.filelink} style={{float:'right'}}></Qrcodediv>
-                            :<Qrcodediv url={"http://"+env.ip+"/file/filelink?filename="+v.filelink} style={{float:'right'}}></Qrcodediv>
-                        }
-                        <Tooltip label="复制连接" large position="top" style={{float:'right'}}>
-                          <IconButton
-                            data-clipboard-text={"http://"+env.ip+"/file/filelink?filename="+v.filelink}
-                            className={s.myfontsize+" forCopyLink"}
-                            onClick={this.copyLink.bind(this,"http://"+env.ip+"/file/filelink?filename="+v.filelink)}
-                            name="content_copy">
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip label="点击下载(右键可以复制链接)" large position="top" style={{float:'right'}}>
-                          <IconButton
-                            name="file_download"
-                            onClick={this.handelDownload.bind(this,v.filelink)}
-                            href={"http://"+env.ip+"/file/filelink?filename="+v.filelink}>
-                          </IconButton>
-                        </Tooltip>
-                        <span>Revision:{v.revision} </span>
 
                       </li>
                     )

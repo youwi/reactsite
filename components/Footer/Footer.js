@@ -13,6 +13,8 @@ import Link from '../Link';
 
 //position: ' '
 function Footer() {
+
+
   return (
     <footer className="mdl-mini-footer"     style={{ bottom: '0px',width: '100%',padding:'1px 16px'}}>
       <div className="mdl-mini-footer__left-section">
