@@ -76,18 +76,14 @@ class BuildList extends React.Component{
                       <li className={s.listlike} key={v.build+v.appid+v.version+v.platform+Math.random()}>
                         <span>{
                           v.env.indexOf("-M")>-1||v.env.indexOf("-P")>-1?v.env:"构建号:"
-                        }{v.build}</span>
-                        <Tooltip label={""+v.revision} large position="top">
-                          <div className={s.autohide}>
-                            <SLabel>{v.revision}</SLabel>
-                          </div>
-                        </Tooltip>
+                        }{v.build} </span>
+                              <span>Revision:{v.revision} </span>
 
-                        <Tooltip style={{minWidth:'100px',display:'inline'}} label={""+moment(v.createat).format('YYYY-MM-DD HH:mm:ss')} large position="top">
-                          <div className={s.autohide}>
-                            <SLabel>{moment(v.createat).format('YYYY-MM-DD HH:mm:ss')}</SLabel>
+
+                           <div className={s.autohide}>
+                            <span>时间:{moment(v.createat).format('YYYY-MM-DD HH:mm:ss')} </span>
                           </div>
-                        </Tooltip>
+
 
                         <Tooltip label="复制连接" large position="top">
                           <IconButton
