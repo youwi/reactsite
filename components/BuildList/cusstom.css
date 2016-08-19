@@ -69,3 +69,10 @@
 .buildlist{
   background: rgba(97, 208, 94, 0.11);
 }
+.autohide{
+  display: inline-flex;
+ // max-width: 100px;
+ // text-overflow: ellipsis;
+  //white-space: nowrap;
+ // overflow: hidden;
+}

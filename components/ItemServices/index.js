@@ -77,13 +77,15 @@ class ItemServices extends React.Component {
           </Cell>
           <Cell col={4}>
               <center>
-                  {
-                    //<Qrcodediv url={
-                    this.state.appid==null?"参数错误"
-                      :<a href={"itms-services://?action=download-manifest&url=https://"+env.httpsip+"/file/filelink?filelink="+this.state.filelink+".plist"} >
-                        <Button raised ripple>点击安装</Button>
-                      </a>
-                  }
+                {
+                  this.state.appid == null ?
+                    "参数错误"
+                    : <a
+                    href={"itms-services://?action=download-manifest&url=https://"+env.httpsip+"/file/filelink?filelink="+this.state.filelink+".plist"}>
+                    <Button raised ripple>点击安装</Button>
+
+                  </a>
+                }
               </center>
             </Cell>
                   <Cell col={4}>
@@ -91,9 +93,21 @@ class ItemServices extends React.Component {
                 </Cell>
           </Grid>
       </div>
+
     )
   }
 }
 
 //export default connect(select)(HomePage);
 export default ItemServices;
+
+/*
+ {
+ //<Qrcodediv url={
+ this.state.appid==null ?
+ "参数错误"
+ :<a href={"itms-services://?action=download-manifest&url=https://"+env.httpsip+"/file/filelink?filelink="+this.state.filelink+".plist"}>  <Button raised ripple>点击安装</Button>
+
+ </a>
+ }
+ */

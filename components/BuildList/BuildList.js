@@ -20,6 +20,11 @@ import QueueAnim from 'rc-queue-anim';
 import env from "../../env.json"
 import Chipbroad from "clipboard"
 import {Message } from "rctui";
+import moment  from "moment";
+import SLabel from "../SLabel"
+
+import TooltipH from 'react-tooltip-component';
+
 
 class BuildList extends React.Component{
 
@@ -72,6 +77,18 @@ class BuildList extends React.Component{
                         <span>{
                           v.env.indexOf("-M")>-1||v.env.indexOf("-P")>-1?v.env:"构建号:"
                         }{v.build}</span>
+                        <Tooltip label={""+v.revision} large position="top">
+                          <div className={s.autohide}>
+                            <SLabel>{v.revision}</SLabel>
+                          </div>
+                        </Tooltip>
+
+                        <Tooltip style={{minWidth:'100px',display:'inline'}} label={""+moment(v.createat).format('YYYY-MM-DD HH:mm:ss')} large position="top">
+                          <div className={s.autohide}>
+                            <SLabel>{moment(v.createat).format('YYYY-MM-DD HH:mm:ss')}</SLabel>
+                          </div>
+                        </Tooltip>
+
                         <Tooltip label="复制连接" large position="top">
                           <IconButton
                             data-clipboard-text={"http://"+env.ip+"/file/filelink?filename="+v.filelink}
@@ -98,8 +115,6 @@ class BuildList extends React.Component{
                             <Qrcodediv url={"https://"+window.location.host+"/file/itemservices?filename="+v.filelink}></Qrcodediv>
                             :<Qrcodediv url={"http://"+env.ip+"/file/filelink?filename="+v.filelink}></Qrcodediv>
                         }
-
-
 
                       </li>
                     )
