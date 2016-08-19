@@ -87,15 +87,17 @@ class BuildList extends React.Component{
                               href={"http://"+env.ip+"/file/filelink?filename="+v.filelink}>
                             </IconButton>
                           </Tooltip>
+                          {
+                            console.log("https://"+window.location.host+"/file/itemservices?filename="+v.filelink)
+                          }
 
                         {
                           //https://192.168.10.193/installIPA.plist
+
                           v.platform=='ios'?
                             <Qrcodediv url={"https://"+window.location.host+"/file/itemservices?filename="+v.filelink}></Qrcodediv>
                             :<Qrcodediv url={"http://"+env.ip+"/file/filelink?filename="+v.filelink}></Qrcodediv>
                         }
-                        <Qrcodediv url={"http://"+window.location.host+"/m?appid="+v.appid+"&version="+v.version+"&platform="+v.platform+"&env="+v.env+"&build="+v.build}></Qrcodediv>
-                        <Qrcodediv url={"itms-services://?action=download-manifest&url="+"https://"+env.httpsip+"/file/filelink?filename="+v.filelink+".plist"}></Qrcodediv>
 
 
 
@@ -117,6 +119,8 @@ export default BuildList;
   //生成一个临时界面
  <Qrcodediv url={"http://"+env.ip+"/m?appid="+v.appid+"&version="+v.version+"&platform="+v.platform+"&env="+v.env+"&build="+v.build}></Qrcodediv>
 
+ <Qrcodediv url={"itms-services://?action=download-manifest&url="+"https://"+env.httpsip+"/file/filelink?filename="+v.filelink+".plist"}></Qrcodediv>
+ <Qrcodediv url={"http://"+window.location.host+"/m?appid="+v.appid+"&version="+v.version+"&platform="+v.platform+"&env="+v.env+"&build="+v.build}></Qrcodediv>
  <Qrcodediv url={"itms-services://?action=download-manifest&url="+"https://"+env.httpsip+"/file/filelink?filename="+v.filelink+".plist"}></Qrcodediv>
 
  //<QrcodeSpan></QrcodeSpan>
