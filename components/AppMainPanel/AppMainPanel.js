@@ -37,6 +37,11 @@ class AppMainPanel extends React.Component {
       // this.setState({ token:data.token});
       // console.log("APP_DETAIL")
     });
+
+    // window.onbeforeunload=function(){
+    //   console.log("返回中");
+    //   pubsub.publish("APP_MAIN");
+    // };
   //  this.handelSelectApp.bind(this);
   }
 
