@@ -17,9 +17,13 @@
 
 .fixnav{
   min-height: 32px;
+  background: #205081;
+  border-bottom: 1px solid #2e3d54;
 }
 
 .fixheight{
-  min-height: 34px;
-  height:34px
+  min-height: 42px;
+  height:34px;
+  background: #205081;
+  border-bottom: 1px solid #2e3d54;
 }

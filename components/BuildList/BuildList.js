@@ -11,7 +11,7 @@
 import React from 'react';
 import Link from '../Link';
 import pubsub from "pubsub-js";
-import {Tooltip,IconToggle,Icon,DataTable,TableHeader,IconButton,Button,Dialog,DialogActions,DialogContent,DialogTitle,Textfield } from "react-mdl";
+import {Tooltip,Grid,Cell,FABButton,IconToggle,Icon,DataTable,TableHeader,IconButton,Button,Dialog,DialogActions,DialogContent,DialogTitle,Textfield } from "react-mdl";
 import { forjson  } from "../AjaxJson";
 import s from "./cusstom.css";
 import Qrcodediv from "../Qrcodediv"
@@ -73,30 +73,42 @@ class BuildList extends React.Component{
                     :
                   this.props.appversionbuild.map((v)=>{
                     return (
+
+
                       <li className={s.listlike} key={v.build+v.appid+v.version+v.platform+Math.random()}>
-                        <span>{
-                          v.env.indexOf("-M")>-1||v.env.indexOf("-P")>-1?v.env:"构建号:"
-                        }{v.build} </span>
+                        <Grid className="demo-grid-ruler">
+                          <Cell col={3} style={{margin:'0px'}}>
+                            <span>{
+                              v.env.indexOf("-M")>-1||v.env.indexOf("-P")>-1?v.env:"构建号:"
+                            }{v.build}
+                            </span>
+                          </Cell>
 
-                           <div className={s.autohide}>
-                            <span>时间:{moment(v.createat).format('YYYY-MM-DD HH:mm:ss')} </span>
-                          </div>
-
-
-
+                          <Cell col={5} style={{margin:'0px'}}>
+                             <div className={s.autohide}>
+                              <span>时间:{moment(v.createat).format('YYYY-MM-DD HH:mm:ss')} </span>
+                            </div>
+                            </Cell>
 
                           {
                             console.log("https://"+window.location.host+"/file/itemservices?filename="+v.filelink)
                           }
+                          <Cell col={4} style={{margin:'0px'}}>
                         <span>
-                            {
-                              //https://192.168.10.193/installIPA.plist
 
-                              v.platform=='ios'?
-                                <Qrcodediv url={"https://"+window.location.host+"/file/itemservices?filename="+v.filelink} style={{float:'right'}}></Qrcodediv>
-                                :<Qrcodediv url={"http://"+env.ip+"/file/filelink?filename="+v.filelink} style={{float:'right'}}></Qrcodediv>
-                            }
-                            <Tooltip label="复制连接" large position="top" style={{float:'right'}}>
+                          {
+                            v.platform=='ios'?
+                              <Tooltip label="下载附件tar包" large position="top" >
+                                <IconButton
+                                  name="insert_drive_file"
+                                  onClick={this.handelDownload.bind(this,v.filelink+".tar")}
+                                  href={"http://"+env.ip+"/file/filelink?filename="+v.filelink+".tar"}>
+                                </IconButton>
+                              </Tooltip>
+                              :null
+                          }
+
+                            <Tooltip label="复制连接" large position="top" >
                               <IconButton
                                 data-clipboard-text={"http://"+env.ip+"/file/filelink?filename="+v.filelink}
                                 className={s.myfontsize+" forCopyLink"}
@@ -104,18 +116,33 @@ class BuildList extends React.Component{
                                 name="content_copy">
                               </IconButton>
                             </Tooltip>
-                            <Tooltip label="点击下载(右键可以复制链接)" large position="top" style={{float:'right'}}>
+                            <Tooltip label="点击下载" large position="top" >
                               <IconButton
                                 name="file_download"
                                 onClick={this.handelDownload.bind(this,v.filelink)}
                                 href={"http://"+env.ip+"/file/filelink?filename="+v.filelink}>
                               </IconButton>
                             </Tooltip>
+
+
                               </span>
+                            {
+                              //https://192.168.10.193/installIPA.plist
+
+                              v.platform=='ios'?
+                                <Qrcodediv url={"https://"+window.location.host+"/file/itemservices?filename="+v.filelink}   style={{float:'right'}}></Qrcodediv>
+                                :<Qrcodediv url={"http://"+env.ip+"/file/filelink?filename="+v.filelink}   style={{float:'right'}}></Qrcodediv>
+                            }
+                          </Cell>
+                          <Cell col={12} style={{margin:'0px'}}>
                             <span>Revision:{v.revision} </span>
+                            </Cell>
 
 
+                        </Grid>
                       </li>
+
+
                     )
                   })
                 }
@@ -130,6 +157,27 @@ class BuildList extends React.Component{
 
 export default BuildList;
 /*
+ style={{float:'right'}}
+ style={{float:'right'}}
+
+ <Tooltip label="复制tar包下载连接" large position="top" style={{float:'right'}}>
+ <IconButton
+ name="file_download"
+ onClick={this.handelDownload.bind(this,v.filelink.slice(0,-4)+".tar")}
+ href={"http://"+env.ip+"/file/filelink?filename="+v.filelink.slice(0,-4)+".tar"}>
+ </IconButton>
+
+ </Tooltip>
+
+ <Tooltip label="复制tar包下载连接" large position="top" style={{float:'right'}}>
+ <IconButton
+ name="file_download"
+ onClick={this.handelDownload.bind(this,v.filelink.slice(0,-4)+".map")}
+ href={"http://"+env.ip+"/file/filelink?filename="+v.filelink.slice(0,-4)+".map"}>
+ </IconButton>
+ </Tooltip>
+
+
   //生成一个临时界面
  <Qrcodediv url={"http://"+env.ip+"/m?appid="+v.appid+"&version="+v.version+"&platform="+v.platform+"&env="+v.env+"&build="+v.build}></Qrcodediv>
 

@@ -21,6 +21,7 @@
     "rc-tween-one": "^0.8.0",
     "rctui": "^0.6.7",
     "react": "^15.2.1",
+    "react-bootstrap": "^0.30.2",
     "react-dom": "^15.3.0",
     "react-mdl": "^1.6.1",
     "react-redux": "^4.4.5",

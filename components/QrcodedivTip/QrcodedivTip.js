@@ -12,7 +12,7 @@ import React, { PropTypes } from 'react';
 import history from '../../core/history';
 import {Icon } from "react-mdl";
 import QRCode from "../rc-qrcode";
-import s from "./Qrcodediv.css"
+import s from "./QrcodedivTip.css"
 import ReactDOM from "react-dom"
 
 class Qrcodediv extends React.Component {

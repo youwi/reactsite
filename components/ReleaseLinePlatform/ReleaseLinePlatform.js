@@ -11,14 +11,15 @@
 import React from 'react';
 import Link from '../Link';
 import pubsub from "pubsub-js";
-import {Card,CardActions,CardText,CardTitle,CardMenu,Tab,Tabs,Icon,DataTable,TableHeader,IconButton,Button,Dialog,DialogActions,DialogContent,DialogTitle,Textfield } from "react-mdl";
+import {Card,Grid,Cell,CardActions,CardText,CardTitle,CardMenu,Tab,Tabs,Icon,DataTable,TableHeader,IconButton,Button,Dialog,DialogActions,DialogContent,DialogTitle,Textfield } from "react-mdl";
 import { forjson  } from "../AjaxJson";
 import s from "./cusstom.css";
 import BuildList from "../BuildList/BuildList";
 import SLabel from "../SLabel";
 import ReleaseLineVersion from "../ReleaseLineVersion"
 import {Message} from "rctui"
-import Qrcodediv from "../Qrcodediv"
+import QrcodedivTip from "../QrcodedivTip"
+import {Label} from "react-bootstrap";
 
 class ReleaseLinePlatform extends React.Component{
 
@@ -192,14 +193,16 @@ class ReleaseLinePlatform extends React.Component{
         <Button style={{left: '48%',marginTop: '20px', textTransform: 'none'}} onClick={this.updateChannel.bind(this)} ripple>{this.props.appname}</Button>
 
         <div style={{display: 'table', width: '100%'}}>
-          <ul>
+          <ul style={{paddingLeft: '0px'}}>
             <li className={s.listyle}>
+              <Grid>
               {
                 ["android","ios"].map((platformname)=>{
                   var hi=window.screen.availHeight > document.body.clientHeight*2?window.screen.availHeight:document.body.clientHeight-172;
                   var h=document.body.clientHeight-240;
                   return (
-                    <Card className={s.bigcard}  key={platformname}  style={{height:h,overflowY: 'scroll'}}
+                    <Cell col={6} key={platformname}>
+                    <Card className={s.bigcard1}  key={platformname}  style={{height:h,overflowY: 'scroll'}}
                           shadow={1}  >
                       <CardActions border>
                         {
@@ -210,7 +213,7 @@ class ReleaseLinePlatform extends React.Component{
                       }
 
                       </CardActions>
-                      <ul>
+                      <ul style={{paddingLeft: '1px'}}>
                         {
                           this.state[platformname+"list"].map((v,i)=>{
                             var vid= v.appid+v.version+platformname;
@@ -257,16 +260,17 @@ class ReleaseLinePlatform extends React.Component{
                       <CardMenu >
                         {
                           platformname=='ios'?
-                            <div > <span> 证书</span>   <Qrcodediv url={"http://appds.wkzf/ca.crt"} style={{float:'right'}}></Qrcodediv></div>
+                            <div > <Label>扫码安装iOS证书</Label>  <QrcodedivTip url={"http://appds.wkzf/ca.crt"} style={{float:'right',padding:'1px',marginLeft:'0px'}}></QrcodedivTip></div>
                             :null
                         }
 
                       </CardMenu>
                     </Card>
+                      </Cell>
                   )
                 })
               }
-
+            </Grid>
             </li>
             <li  className={s.listyle}>
 

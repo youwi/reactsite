@@ -3,13 +3,16 @@
 
 }
 
+.bigcard1{
+  width: 100%;
+}
 .bigcard{
   min-height: 600px;
   display:table-cell;
   position: relative;
   float:left;
   margin-bottom: 0px;
-  width: 45%;
+//  width: 45%;
   margin-left: 5px;
   margin-right: 5px;
 //  text-align: center;
@@ -42,7 +45,7 @@
 }
 .listyle{
   list-style-type:none;
-  margin-left: 4%;
+ // margin-left: 1%;
 }
 .platform  div a :hover{
   color: blue;

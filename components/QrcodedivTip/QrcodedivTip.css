@@ -6,7 +6,7 @@
   right:10px;
  // position: absolute;
   border:1px black;
-  margin-left:-50px;
+
 }
 .ssshide{
   display: none;
@@ -18,7 +18,7 @@
 
 .qrdiv{
 //  float:right;
-  padding: 0px;
+  padding: 4px;
 }
 
 .qrdiv:hover{
