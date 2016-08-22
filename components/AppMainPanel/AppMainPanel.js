@@ -2,7 +2,7 @@
 import React from 'react';
 import s from './custom.css';
 import { Tooltip ,Icon,List,ListItem,ListItemAction,ListItemContent} from 'react-mdl';
-import { FABButton, DataTable,TableHeader,CardTitle,Card,CardActions,CardText,Button} from 'react-mdl';
+import { Grid,Cell,FABButton, DataTable,TableHeader,CardTitle,Card,CardActions,CardText,Button} from 'react-mdl';
 import {forjson } from '../AjaxJson';
 import pubsub from "pubsub-js";
 import { findDOMNode } from 'react-dom';
@@ -76,7 +76,10 @@ class AppMainPanel extends React.Component {
     }else
     return (
 
+
       <List >
+
+
         {   this.state.allapplist.map( (app)=> {
             return (
 
@@ -89,15 +92,19 @@ class AppMainPanel extends React.Component {
             </Card>
                 </div>
               </li>
+            
 
             )
           })
         }
+
         <li className={s.postli+" "+s.whitehide} >
            <FABButton ripple onClick={()=>pubsub.publish("OPEN_ADD_APP_FORM")}>
               <Icon name="add" />
           </FABButton>
           </li>
+
+
         </List>
 
 
