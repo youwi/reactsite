@@ -260,7 +260,7 @@ class ReleaseLinePlatform extends React.Component{
                       <CardMenu >
                         {
                           platformname=='ios'?
-                            <div > <Label>扫码安装iOS证书</Label>  <QrcodedivTip url={"http://appds.wkzf/ca.crt"} style={{float:'right',padding:'1px',marginLeft:'0px'}}></QrcodedivTip></div>
+                            <div > <Label style={{color:'red'}}>扫码安装iOS证书</Label>  <QrcodedivTip url={"http://appds.wkzf/ca.crt"} style={{float:'right',padding:'1px',marginLeft:'0px'}}></QrcodedivTip></div>
                             :null
                         }
 
