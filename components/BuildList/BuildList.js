@@ -77,12 +77,20 @@ class BuildList extends React.Component{
 
                       <li className={s.listlike} key={v.build+v.appid+v.version+v.platform+Math.random()}>
                         <Grid className="demo-grid-ruler">
-                          <Cell col={3} style={{margin:'0px'}}>
-                            <span>{
-                              v.env.indexOf("-M")>-1||v.env.indexOf("-P")>-1?v.env:"构建号:"
-                            }{v.build}
-                            </span>
-                          </Cell>
+                          {
+                            v.env.indexOf("prd-")>-1?
+                              <Cell col={3} style={{margin:'0px'}}>
+                                <span> {v.env.slice(4)}
+                                </span>
+                              </Cell>:
+                              <Cell col={3} style={{margin:'0px'}}>
+                                <span>{
+                                  v.env.indexOf("-M")>-1||v.env.indexOf("-P")>-1?v.env:"构建号:"
+                                }{v.build}
+                                </span>
+                              </Cell>
+                          }
+
 
                           <Cell col={5} style={{margin:'0px'}}>
                              <div className={s.autohide}>
@@ -134,9 +142,14 @@ class BuildList extends React.Component{
                                 :<Qrcodediv url={"http://"+env.ip+"/file/filelink?filename="+v.filelink}   style={{float:'right'}}></Qrcodediv>
                             }
                           </Cell>
-                          <Cell col={12} style={{margin:'0px'}}>
-                            <span>Revision:{v.revision} </span>
-                            </Cell>
+                          {
+                            v.env.indexOf("prd-")>=0? null:
+                              <Cell col={12} style={{margin:'0px'}}>
+                                <span>Revision:{v.revision} </span>
+                              </Cell>
+                          }
+
+
 
 
                         </Grid>
