@@ -29,8 +29,8 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <Provider store={Store} titile="">
-        <Layout title="">
+      <Provider store={Store} titile="应用分发平台">
+        <Layout title="应用分发平台">
           <LoginDialog openDialog={this.props.openDialog}></LoginDialog>
             <AppMainPanel></AppMainPanel>
           <GlobalToast></GlobalToast>
