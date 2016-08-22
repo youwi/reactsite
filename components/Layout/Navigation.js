@@ -26,7 +26,7 @@ class Navigation extends React.Component {
     pubsub.subscribe("LOGIN_SUCCESS",(type,data)=>{
       this.setState( {username:data.name,token:data.token} );
       console.log("LOGIN_SUCCESS")});
- 
+
   }
 
   componentDidMount() {
@@ -76,11 +76,15 @@ class Navigation extends React.Component {
 
             </Menu>
         </Link>
-        <IconButton name="file_upload" className="material-icons" onClick={ () => {pubsub.publish("OPEN_UPLOAD_FORM")} }>file_upload</IconButton>
-      </nav>
+              </nav>
     );
   }
 }
 export default connect()(Navigation)
 connect()(LoginDialog)
+
+/*
+ // <IconButton name="file_upload" className="material-icons" onClick={ () => {pubsub.publish("OPEN_UPLOAD_FORM")} }>file_upload</IconButton>
+
+ */
 
