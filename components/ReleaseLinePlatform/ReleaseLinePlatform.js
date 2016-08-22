@@ -132,7 +132,7 @@ class ReleaseLinePlatform extends React.Component{
     ['dev','test','slim','prd','prd-promotion','prd-market'].map((item,i)=>{
       var vid= obj.appid+obj.version+obj.platform;
       if(this.state.active[vid]==null) this.state.active[vid]=[false,false,false,false,false,false];
-      obj.env==item?this.state.active[vid][i]=true:this.state.active[vid][i]=false;
+      item.indexOf(obj.env)>=0?this.state.active[vid][i]=true:this.state.active[vid][i]=false;
     })
   }
 
@@ -234,12 +234,17 @@ class ReleaseLinePlatform extends React.Component{
                                         <SLabel active={this.state.active[vid][1]} ref={vid+'test'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'test'})}>Test</SLabel>
                                         <SLabel active={this.state.active[vid][2]} ref={vid+'slim'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'slim'})}>Sim</SLabel>
                                         <SLabel active={this.state.active[vid][3]} ref={vid+'prd'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'prd'})}>Prod</SLabel>
-                                      {
-                                      platformname=='ios'?null:
+                                    {
+                                      //特殊情况
+                                      v.appname=='今日笋盘App'?platformname=='ios'?null:
+                                        <SLabel active={this.state.active[vid][4]} ref={vid+'prd-all'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'prd-'})}>Market</SLabel>:null
+                                    }
+                                    {
+                                      (platformname=='ios'||v.appname!='悟空找房App' ||v.appname!='今日笋盘App')?null:
                                         <SLabel active={this.state.active[vid][4]} ref={vid+'prd-promotion'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'prd-promotion'})}>Promotion</SLabel>
                                     }
                                     {
-                                      platformname=='ios'?null:
+                                      platformname=='ios'||v.appname!='悟空找房App' ||v.appname!='今日笋盘App'?null:
                                         <SLabel active={this.state.active[vid][5]} ref={vid+'prd-market'}  onClick={this.handelSelectAppVersionPlatform.bind(this,{version:v.version,appid:v.appid,platform:platformname,env:'prd-market'})}>Market</SLabel>
                                     }
                                     <BuildList  appversionbuild={this.state.buildlist[v.appid+v.version+platformname]||[]}>

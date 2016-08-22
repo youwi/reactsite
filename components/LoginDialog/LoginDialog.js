@@ -118,7 +118,7 @@ class LoginDialog extends React.Component{
           </DialogContent>
 
           <DialogActions>
-            <Button type='button' raised accent ripple onClick={this.loginStep3}>登陆</Button>
+            <Button type='button' raised accent ripple onClick={this.loginStep3}>登录</Button>
           </DialogActions>
         </Dialog>
       </div>
