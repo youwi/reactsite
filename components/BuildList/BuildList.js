@@ -101,8 +101,8 @@ class BuildList extends React.Component{
                               <Tooltip label="下载附件tar包" large position="top" >
                                 <IconButton
                                   name="insert_drive_file"
-                                  onClick={this.handelDownload.bind(this,v.filelink+".tar")}
-                                  href={"http://"+env.ip+"/file/filelink?filename="+v.filelink+".tar"}>
+                                  onClick={this.handelDownload.bind(this,v.filelink.slice(0,-4)+".tar")}
+                                  href={"http://"+env.ip+"/file/filelink?filename="+v.filelink.slice(0,-4)+".tar"}>
                                 </IconButton>
                               </Tooltip>
                               :null
