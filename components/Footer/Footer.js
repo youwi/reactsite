@@ -22,6 +22,7 @@ function Footer() {
         <ul className="mdl-mini-footer__link-list">
 
           <li><Link to="/about">About © WKZF-QA-Team</Link></li>
+          <li><Link to="/about">Version 1.0</Link></li>
 
         </ul>
       </div>

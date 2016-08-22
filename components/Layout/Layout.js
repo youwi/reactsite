@@ -21,7 +21,7 @@ class Layout extends React.Component {
   constructor(props){
     super();
     this.state={};
-    this.state.bodyhi=window.screen.availHeight > document.body.clientHeight*2?window.screen.availHeight:document.body.clientHeight-82;
+    this.state.bodyhi=window.screen.availHeight > document.body.clientHeight*2?window.screen.availHeight:document.body.clientHeight-78;
 
   }
 
@@ -29,7 +29,7 @@ class Layout extends React.Component {
     this.state={};
     window.componentHandler.upgradeElement(this.refs.root);
     window.onresize=()=> {
-      this.state.bodyhi=window.screen.availHeight > document.body.clientHeight*2?window.screen.availHeight:document.body.clientHeight-82;
+      this.state.bodyhi=window.screen.availHeight > document.body.clientHeight*2?window.screen.availHeight:document.body.clientHeight-78;
       this.setState({bodyhi:this.state.bodyhi});
 
     };
@@ -40,7 +40,7 @@ class Layout extends React.Component {
   }
 //style={{height: '30px', position: 'relative','min-height':'34px'}}
   render() {
-    var hi=window.screen.availHeight > document.body.clientHeight*2?window.screen.availHeight:document.body.clientHeight-82;
+    var hi=window.screen.availHeight > document.body.clientHeight*2?window.screen.availHeight:document.body.clientHeight-80;
     return (
       <div className={s.fixnav} className="mdl-layout mdl-js-layout"   ref="root">
         <div className="mdl-layout__inner-container">

@@ -59,6 +59,18 @@ class AppMainPanel extends React.Component {
 
   handelSelectApp(appid,name,e){
       //提前判断下.
+    history.createHref("/"+appid);
+    history.createPath('/the/path');
+    location.hash=appid;
+    // history.push({
+    //   pathname: '/'+appid,
+    //   search: null,
+    //
+    //   // Extra location-specific state may be kept in session
+    //   // storage instead of in the URL query string!
+    //   //state: { the: 'state' }
+    // });
+    //history.
     forjson("http://127.0.0.1:9090/userinfo.rest",null,(data)=> {
       if(data.username)
         this.setState({selectapp:appid,selectname:name});
@@ -92,7 +104,7 @@ class AppMainPanel extends React.Component {
             </Card>
                 </div>
               </li>
-            
+
 
             )
           })

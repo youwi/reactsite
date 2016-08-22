@@ -199,7 +199,7 @@ class ReleaseLinePlatform extends React.Component{
               {
                 ["android","ios"].map((platformname)=>{
                   var hi=window.screen.availHeight > document.body.clientHeight*2?window.screen.availHeight:document.body.clientHeight-172;
-                  var h=document.body.clientHeight-240;
+                  var h=document.body.clientHeight-200;
                   return (
                     <Cell col={6} key={platformname}>
                     <Card className={s.bigcard1}  key={platformname}  style={{height:h,overflowY: 'scroll'}}

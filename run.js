@@ -17,8 +17,8 @@ const webpack = require('webpack');
 
 // TODO: Update configuration settings
 const config = {
-  title: 'ADP',        // Your website title
-  url: 'http://adp.wkzf',          // Your website URL
+  title: '应用分发平台',        // Your website title
+  url: 'http://appds.wkzf',          // Your website URL
   project: 'http://stash.wkzf/projects/QA',      // Firebase project. See README.md -> How to Deploy
   trackingID: 'yu',                 // Google Analytics Site's ID
 };
