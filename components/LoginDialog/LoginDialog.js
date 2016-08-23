@@ -43,6 +43,7 @@ class LoginDialog extends React.Component{
     findDOMNode(this.refs.dia).style.zIndex = 9;
     findDOMNode(this.refs.dia).style.background='white';
     findDOMNode(this.refs.dia).style.left='40%';
+    this.handleCloseDialog();
   }
 
 
@@ -81,7 +82,9 @@ class LoginDialog extends React.Component{
 
   componentDidMount(){
     //this.refs.dia.style.top='100px';
-   if(navigator.userAgent.indexOf("Firefox")>0)
+   if((navigator.userAgent.indexOf("Firefox")>0
+    ||navigator.userAgent.indexOf("Safari")>0  )
+    && navigator.userAgent.indexOf("Chrome")==-1 )
       this.handleFirefox();
   }
 
